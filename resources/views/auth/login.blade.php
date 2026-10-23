@@ -1,7 +1,7 @@
 <x-guest-layout title="Masuk">
     <div class="text-center mb-8">
-        <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary-600 text-white font-bold text-lg shadow-sm mb-3 transition-colors">
-            FX
+        <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary-500 text-white font-bold text-lg shadow-sm mb-3 transition-colors">
+            <img src="{{ asset('assets/icon/laravel-white.svg') }}" alt="Flux Starter" class="w-full h-full object-contain" />
         </div>
         <h1 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
             Masuk ke Akun Anda
@@ -12,13 +12,6 @@
     </div>
 
     <div class="relative bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-6 shadow-xl shadow-zinc-950/5">
-        <!-- Floating Theme Trigger in Login -->
-        <button type="button"
-                onclick="window.openThemeCustomizer()"
-                class="absolute top-4 right-4 p-1.5 rounded-lg text-zinc-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
-                title="Pilih Tema Warna">
-            <x-heroicon-o-swatch class="w-4 h-4" />
-        </button>
 
         <form method="POST" action="{{ route('login.store') }}" class="space-y-4">
             @csrf
@@ -72,16 +65,16 @@
 
             <!-- Submit Button -->
             <button type="submit"
-                    class="w-full mt-2 py-2.5 px-4 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-semibold text-sm shadow-xs focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors">
+                    class="w-full mt-2 py-2.5 px-4 rounded-xl bg-primary-500 hover:bg-primary-700 text-white font-semibold text-sm shadow-xs focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors">
                 Masuk ke Dashboard
             </button>
         </form>
-
-        <!-- Dev Hint Box -->
-        <div class="mt-6 pt-5 border-t border-zinc-100 dark:border-zinc-800 text-[11px] text-zinc-500 bg-zinc-50 dark:bg-zinc-800/50 -mx-6 -mb-6 p-4 rounded-b-2xl">
-            <p class="font-semibold text-zinc-700 dark:text-zinc-300 mb-1">Kredensial Default (Development):</p>
-            <p>Email: <code class="text-zinc-900 dark:text-zinc-100 font-mono font-medium">admin@example.com</code></p>
-            <p>Password: <code class="text-zinc-900 dark:text-zinc-100 font-mono font-medium">password</code></p>
+        <div class="mt-6 border-t border-zinc-100 dark:border-zinc-800 text-[11px] text-zinc-500 bg-zinc-50 dark:bg-zinc-800/50 -mx-6 -mb-6 p-4 rounded-b-2xl">
+            <!-- untuk daftar akun baru -->
+            <div class="flex items-center justify-center gap-2">
+                <span>Belum punya akun?</span>
+                <a href="{{ route('register') }}" class="text-primary-600 hover:text-primary-700 font-semibold">Daftar</a>
+            </div>
         </div>
     </div>
 </x-guest-layout>

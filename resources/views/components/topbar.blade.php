@@ -10,7 +10,7 @@
         <!-- Desktop sidebar toggle (compact/expand) -->
         <button type="button"
                 onclick="window.toggleSidebarCollapse()"
-                class="hidden lg:inline-flex p-2 -ml-2 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-primary-500 cursor-pointer"
+                class="hidden lg:inline-flex p-2 -ml-2 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer"
                 title="Tutup / Buka Sidebar"
                 aria-label="Tutup / Buka Sidebar">
             <x-heroicon-o-bars-3-bottom-left class="w-5 h-5" />
@@ -18,11 +18,7 @@
 
         <!-- Breadcrumbs -->
         <nav class="flex items-center gap-2 text-sm" aria-label="Breadcrumb">
-            <a href="{{ route('dashboard') }}" class="text-zinc-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-                <x-heroicon-o-home class="w-4 h-4" />
-            </a>
             @foreach ($breadcrumbs as $crumb)
-                <span class="text-zinc-300 dark:text-zinc-700">/</span>
                 @if (isset($crumb['url']) && !$loop->last)
                     <a href="{{ $crumb['url'] }}" class="text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200 font-medium transition-colors">
                         {{ $crumb['label'] }}

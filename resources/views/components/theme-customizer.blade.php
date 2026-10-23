@@ -39,7 +39,7 @@
     <div class="fixed inset-0 bg-zinc-950/50 backdrop-blur-xs transition-opacity" onclick="window.closeThemeCustomizer()"></div>
 
     <!-- Modal Card (Make it your own.) -->
-    <div class="relative w-full max-w-4xl transform overflow-hidden rounded-xlxl bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800 p-6 sm:p-10 text-left shadow-2xl transition-all max-h-[92vh] overflow-y-auto">
+    <div class="relative w-full max-w-4xl transform overflow-hidden rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/90 dark:border-zinc-800 p-6 sm:p-10 text-left shadow-2xl transition-all max-h-[92vh] overflow-y-auto">
         
         <!-- Close Button -->
         <button type="button" onclick="window.closeThemeCustomizer()" class="absolute top-5 right-5 p-2 rounded-xl text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors focus:outline-none focus:ring-2 focus:ring-zinc-400" aria-label="Tutup kustomisasi tema">

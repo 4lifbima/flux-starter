@@ -5,7 +5,7 @@
             <h1 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
                 Data Tables
             </h1>
-            <p class="mt-1 text-sm text-zinc-500">
+            <p class="mt-1 text-sm text-zinc-500 hidden lg:block">
                 Kelola entitas data demo dengan pencarian instan (live search), filter status, pengurutan, dan paginasi server-side tanpa reload.
             </p>
         </div>

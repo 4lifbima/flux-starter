@@ -38,17 +38,6 @@
                 </span>
             </div>
         </a>
-
-        <!-- Desktop Sidebar Collapse Toggle Button (Circle in User's Screenshot) -->
-        <button type="button"
-                id="sidebar-toggle-btn"
-                onclick="window.toggleSidebarCollapse()"
-                class="sidebar-toggle-btn p-1.5 rounded-lg text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 flex-shrink-0 cursor-pointer"
-                title="Tutup / Buka Sidebar"
-                aria-label="Tutup / Buka Sidebar">
-            <x-heroicon-o-chevron-double-left class="w-4 h-4 sidebar-icon-collapse" />
-            <x-heroicon-o-chevron-double-right class="w-4 h-4 sidebar-icon-expand" />
-        </button>
     </div>
 
     <!-- Navigation Menu -->

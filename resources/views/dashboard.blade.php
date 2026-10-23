@@ -5,16 +5,13 @@
             <h1 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
                 Dashboard Overview
             </h1>
-            <p class="mt-1 text-sm text-zinc-500">
-                Selamat datang di starter kit dashboard Laravel dengan antarmuka bergaya Flux UI dan tema dinamis.
-            </p>
         </div>
         <div class="mt-4 sm:mt-0 flex flex-wrap items-center gap-2.5">
             <a href="{{ route('tables.create') }}" class="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-md border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-700/50 shadow-2xs transition-colors">
                 <x-heroicon-o-plus class="w-4 h-4 text-zinc-500" />
                 <span>Tambah Table</span>
             </a>
-            <a href="{{ route('users.create') }}" class="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-md bg-primary-600 hover:bg-primary-700 text-white shadow-xs transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500">
+            <a href="{{ route('users.create') }}" class="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-md bg-primary-600 hover:bg-primary-700 text-white shadow-xs transition-colors dark:text-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500">
                 <x-heroicon-o-user-plus class="w-4 h-4" />
                 <span>Tambah User</span>
             </a>
@@ -27,8 +24,8 @@
         <div class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl p-5 shadow-2xs">
             <div class="flex items-center justify-between">
                 <span class="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Total Tables</span>
-                <span class="p-2 rounded-xl bg-primary-50 dark:bg-primary-950/40 text-primary-600 dark:text-primary-400">
-                    <x-heroicon-o-table-cells class="w-4 h-4" />
+                <span class="p-3 rounded-md bg-primary-50 dark:bg-primary-950/40 text-primary-600 dark:text-primary-400">
+                    <x-heroicon-o-table-cells class="w-6 h-6" />
                 </span>
             </div>
             <div class="mt-4 flex items-baseline justify-between">
@@ -44,12 +41,12 @@
         <div class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl p-5 shadow-2xs">
             <div class="flex items-center justify-between">
                 <span class="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Tables Aktif</span>
-                <span class="p-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400">
-                    <x-heroicon-o-check-circle class="w-4 h-4" />
+                <span class="p-3 rounded-md bg-primary-50 dark:bg-primary-950/40 text-primary-600 dark:text-primary-400">
+                    <x-heroicon-o-check-circle class="w-6 h-6" />
                 </span>
             </div>
             <div class="mt-4 flex items-baseline justify-between">
-                <span class="text-3xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400">{{ $activeTables }}</span>
+                <span class="text-3xl font-bold tracking-tight text-primary-600 dark:text-primary-400">{{ $activeTables }}</span>
                 <span class="text-xs text-zinc-400 font-medium">Status Berjalan</span>
             </div>
         </div>
@@ -58,12 +55,12 @@
         <div class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl p-5 shadow-2xs">
             <div class="flex items-center justify-between">
                 <span class="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Tables Nonaktif</span>
-                <span class="p-2 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400">
-                    <x-heroicon-o-exclamation-circle class="w-4 h-4" />
+                <span class="p-3 rounded-md bg-primary-50 dark:bg-primary-950/40 text-primary-600 dark:text-primary-400">
+                    <x-heroicon-o-exclamation-circle class="w-6 h-6" />
                 </span>
             </div>
             <div class="mt-4 flex items-baseline justify-between">
-                <span class="text-3xl font-bold tracking-tight text-amber-600 dark:text-amber-400">{{ $inactiveTables }}</span>
+                <span class="text-3xl font-bold tracking-tight text-primary-600 dark:text-primary-400">{{ $inactiveTables }}</span>
                 <span class="text-xs text-zinc-400 font-medium">Diarsipkan</span>
             </div>
         </div>
@@ -72,8 +69,8 @@
         <div class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl p-5 shadow-2xs">
             <div class="flex items-center justify-between">
                 <span class="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Total Users</span>
-                <span class="p-2 rounded-xl bg-primary-50 dark:bg-primary-950/40 text-primary-600 dark:text-primary-400">
-                    <x-heroicon-o-users class="w-4 h-4" />
+                <span class="p-3 rounded-md bg-primary-50 dark:bg-primary-950/40 text-primary-600 dark:text-primary-400">
+                    <x-heroicon-o-users class="w-6 h-6" />
                 </span>
             </div>
             <div class="mt-4 flex items-baseline justify-between">
