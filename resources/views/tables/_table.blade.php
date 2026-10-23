@@ -109,20 +109,24 @@
 
                     <!-- Actions -->
                     <td class="py-4 pl-3 pr-6 text-right whitespace-nowrap">
-                        <div class="flex items-center justify-end gap-2">
+                        <div class="flex items-center justify-end gap-1">
                             <a href="{{ route('tables.edit', $table->id) }}"
-                               class="px-2.5 py-1.5 text-xs font-semibold rounded-lg text-zinc-700 dark:text-zinc-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
-                                Edit
+                               title="Edit data"
+                               aria-label="Edit data {{ $table->name }}"
+                               class="inline-flex items-center justify-center p-2 rounded-lg text-zinc-500 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500">
+                                <x-heroicon-o-pencil-square class="w-4 h-4" />
                             </a>
                             <button type="button"
+                                    title="Hapus data"
+                                    aria-label="Hapus data {{ $table->name }}"
                                     onclick="window.openConfirmModal({
                                         title: 'Hapus Data Table',
                                         message: 'Apakah Anda yakin ingin menghapus data \'{{ addslashes($table->name) }}\'? Tindakan ini tidak dapat dibatalkan.',
                                         action: '{{ route('tables.destroy', $table->id) }}',
                                         confirmText: 'Ya, Hapus Data'
                                     })"
-                                    class="px-2.5 py-1.5 text-xs font-semibold rounded-lg text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors">
-                                Hapus
+                                    class="inline-flex items-center justify-center p-2 rounded-lg text-zinc-500 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500">
+                                <x-heroicon-o-trash class="w-4 h-4" />
                             </button>
                         </div>
                     </td>

@@ -10,11 +10,11 @@
             </p>
         </div>
         <div class="mt-4 sm:mt-0 flex flex-wrap items-center gap-2.5">
-            <a href="{{ route('tables.create') }}" class="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-700/50 shadow-2xs transition-colors">
+            <a href="{{ route('tables.create') }}" class="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-md border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-700/50 shadow-2xs transition-colors">
                 <x-heroicon-o-plus class="w-4 h-4 text-zinc-500" />
                 <span>Tambah Table</span>
             </a>
-            <a href="{{ route('users.create') }}" class="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-xl bg-primary-600 hover:bg-primary-700 text-white shadow-xs transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500">
+            <a href="{{ route('users.create') }}" class="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-md bg-primary-600 hover:bg-primary-700 text-white shadow-xs transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500">
                 <x-heroicon-o-user-plus class="w-4 h-4" />
                 <span>Tambah User</span>
             </a>
@@ -122,8 +122,11 @@
                                     Nonaktif
                                 </span>
                             @endif
-                            <a href="{{ route('tables.edit', $table->id) }}" class="text-xs font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-200">
-                                Edit
+                            <a href="{{ route('tables.edit', $table->id) }}"
+                               title="Edit data"
+                               aria-label="Edit data {{ $table->name }}"
+                               class="p-1.5 rounded-lg text-zinc-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+                                <x-heroicon-o-pencil-square class="w-4 h-4" />
                             </a>
                         </div>
                     </div>

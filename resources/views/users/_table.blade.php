@@ -101,30 +101,38 @@
 
                     <!-- Actions with Security Guard Checks -->
                     <td class="py-4 pl-3 pr-6 text-right whitespace-nowrap">
-                        <div class="flex items-center justify-end gap-2">
+                        <div class="flex items-center justify-end gap-1">
                             <a href="{{ route('users.edit', $user->id) }}"
-                               class="px-2.5 py-1.5 text-xs font-semibold rounded-lg text-zinc-700 dark:text-zinc-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
-                                Edit
+                               title="Edit pengguna"
+                               aria-label="Edit {{ $user->name }}"
+                               class="inline-flex items-center justify-center p-2 rounded-lg text-zinc-500 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500">
+                                <x-heroicon-o-pencil-square class="w-4 h-4" />
                             </a>
 
                             @if ($user->id === $currentUserId)
-                                <span class="px-2.5 py-1.5 text-xs font-semibold rounded-lg text-zinc-400 cursor-not-allowed" title="Anda tidak dapat menghapus akun Anda sendiri">
-                                    Hapus
+                                <span class="inline-flex items-center justify-center p-2 rounded-lg text-zinc-300 dark:text-zinc-600 cursor-not-allowed"
+                                      title="Anda tidak dapat menghapus akun Anda sendiri"
+                                      aria-label="Tidak dapat menghapus akun Anda sendiri">
+                                    <x-heroicon-o-trash class="w-4 h-4" />
                                 </span>
                             @elseif ($totalUsersCount <= 1)
-                                <span class="px-2.5 py-1.5 text-xs font-semibold rounded-lg text-zinc-400 cursor-not-allowed" title="Tidak dapat menghapus user terakhir">
-                                    Hapus
+                                <span class="inline-flex items-center justify-center p-2 rounded-lg text-zinc-300 dark:text-zinc-600 cursor-not-allowed"
+                                      title="Tidak dapat menghapus user terakhir"
+                                      aria-label="Tidak dapat menghapus user terakhir">
+                                    <x-heroicon-o-trash class="w-4 h-4" />
                                 </span>
                             @else
                                 <button type="button"
+                                        title="Hapus pengguna"
+                                        aria-label="Hapus {{ $user->name }}"
                                         onclick="window.openConfirmModal({
                                             title: 'Hapus Pengguna',
                                             message: 'Apakah Anda yakin ingin menghapus akun \'{{ addslashes($user->name) }}\' ({{ $user->email }})? Tindakan ini tidak dapat dibatalkan.',
                                             action: '{{ route('users.destroy', $user->id) }}',
                                             confirmText: 'Ya, Hapus Pengguna'
                                         })"
-                                        class="px-2.5 py-1.5 text-xs font-semibold rounded-lg text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors">
-                                    Hapus
+                                        class="inline-flex items-center justify-center p-2 rounded-lg text-zinc-500 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500">
+                                    <x-heroicon-o-trash class="w-4 h-4" />
                                 </button>
                             @endif
                         </div>
