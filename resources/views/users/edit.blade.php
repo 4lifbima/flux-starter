@@ -1,0 +1,107 @@
+<x-app-layout title="Edit Pengguna" :breadcrumbs="[['label' => 'Users', 'url' => route('users.index')], ['label' => 'Edit Pengguna']]">
+    <div class="max-w-2xl mx-auto">
+        <!-- Header -->
+        <div class="mb-6">
+            <h1 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+                Edit Pengguna
+            </h1>
+            <p class="mt-1 text-sm text-zinc-500">
+                Perbarui rincian akun {{ $user->name }}. Kosongkan kata sandi jika tidak ingin mengubahnya.
+            </p>
+        </div>
+
+        <!-- Form Card -->
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl p-6 sm:p-8 shadow-2xs">
+            <form method="POST" action="{{ route('users.update', $user->id) }}" class="space-y-6">
+                @csrf
+                @method('PUT')
+
+                <!-- Name Field -->
+                <div>
+                    <label for="name" class="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider mb-2">
+                        Nama Lengkap <span class="text-rose-500">*</span>
+                    </label>
+                    <input type="text"
+                           id="name"
+                           name="name"
+                           value="{{ old('name', $user->name) }}"
+                           required
+                           placeholder="Contoh: Budi Santoso"
+                           class="w-full px-3.5 py-2.5 text-sm rounded-xl border {{ $errors->has('name') ? 'border-rose-300 bg-rose-50/20 text-rose-900 focus:border-rose-500 focus:ring-rose-200' : 'border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:border-zinc-900 dark:focus:border-zinc-100 focus:ring-zinc-900/10' }} focus:outline-none focus:ring-2 transition-colors">
+                    @error('name')
+                        <p class="mt-1.5 text-xs text-rose-600 dark:text-rose-400 font-medium">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Email Field -->
+                <div>
+                    <label for="email" class="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider mb-2">
+                        Alamat Email <span class="text-rose-500">*</span>
+                    </label>
+                    <input type="email"
+                           id="email"
+                           name="email"
+                           value="{{ old('email', $user->email) }}"
+                           required
+                           placeholder="budi@perusahaan.com"
+                           class="w-full px-3.5 py-2.5 text-sm rounded-xl border {{ $errors->has('email') ? 'border-rose-300 bg-rose-50/20 text-rose-900 focus:border-rose-500 focus:ring-rose-200' : 'border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:border-zinc-900 dark:focus:border-zinc-100 focus:ring-zinc-900/10' }} focus:outline-none focus:ring-2 transition-colors">
+                    @error('email')
+                        <p class="mt-1.5 text-xs text-rose-600 dark:text-rose-400 font-medium">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="pt-4 border-t border-zinc-100 dark:border-zinc-800">
+                    <p class="text-xs font-semibold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider mb-1">
+                        Ganti Kata Sandi (Opsional)
+                    </p>
+                    <p class="text-xs text-zinc-500 mb-4">
+                        Biarkan kedua bidang di bawah ini kosong jika tidak ingin mengubah kata sandi saat ini.
+                    </p>
+
+                    <!-- Password Field -->
+                    <div class="space-y-4">
+                        <div>
+                            <label for="password" class="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1.5">
+                                Kata Sandi Baru
+                            </label>
+                            <input type="password"
+                                   id="password"
+                                   name="password"
+                                   autocomplete="new-password"
+                                   placeholder="Minimal 8 karakter (opsional)"
+                                   class="w-full px-3.5 py-2.5 text-sm rounded-xl border {{ $errors->has('password') ? 'border-rose-300 bg-rose-50/20 text-rose-900 focus:border-rose-500 focus:ring-rose-200' : 'border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:border-zinc-900 dark:focus:border-zinc-100 focus:ring-zinc-900/10' }} focus:outline-none focus:ring-2 transition-colors">
+                            @error('password')
+                                <p class="mt-1.5 text-xs text-rose-600 dark:text-rose-400 font-medium">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Password Confirmation Field -->
+                        <div>
+                            <label for="password_confirmation" class="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1.5">
+                                Konfirmasi Kata Sandi Baru
+                            </label>
+                            <input type="password"
+                                   id="password_confirmation"
+                                   name="password_confirmation"
+                                   autocomplete="new-password"
+                                   placeholder="Ulangi kata sandi baru"
+                                   class="w-full px-3.5 py-2.5 text-sm rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:border-zinc-900 dark:focus:border-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-900/10 transition-colors">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="pt-4 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-end gap-3">
+                    <a href="{{ route('users.index') }}"
+                       class="px-4 py-2.5 text-sm font-medium rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-700/50 transition-colors">
+                        Batal
+                    </a>
+                    <button type="submit"
+                            class="px-5 py-2.5 text-sm font-semibold rounded-xl bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-zinc-200 text-white dark:text-zinc-900 shadow-xs focus:outline-none focus:ring-2 focus:ring-zinc-900/20 transition-colors">
+                        Simpan Perubahan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</x-app-layout>
