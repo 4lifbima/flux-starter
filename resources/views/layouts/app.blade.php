@@ -7,19 +7,27 @@
 
     <title>{{ isset($title) ? $title . ' - ' . config('app.name', 'Flux Starter') : config('app.name', 'Flux Starter') }}</title>
 
-    <!-- Anti-FOUC Theme Script -->
+    <!-- Anti-FOUC Theme & Sidebar State Script -->
     <script>
         (function () {
             try {
                 const primary = localStorage.getItem('flux_theme_primary') || 'orange';
                 const neutral = localStorage.getItem('flux_theme_neutral') || 'neutral';
                 const mode = localStorage.getItem('flux_theme_mode') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                const sidebarCollapsed = localStorage.getItem('flux_sidebar_collapsed') === 'true';
+
                 document.documentElement.setAttribute('data-primary', primary);
                 document.documentElement.setAttribute('data-neutral', neutral);
                 if (mode === 'dark') {
                     document.documentElement.classList.add('dark');
                 } else {
                     document.documentElement.classList.remove('dark');
+                }
+
+                if (sidebarCollapsed) {
+                    document.documentElement.classList.add('sidebar-collapsed');
+                } else {
+                    document.documentElement.classList.remove('sidebar-collapsed');
                 }
             } catch (e) {}
         })();
@@ -39,7 +47,7 @@
         <x-sidebar />
 
         <!-- Main Wrapper -->
-        <div class="lg:pl-64 flex flex-col min-h-screen">
+        <div id="main-wrapper" class="lg:pl-64 flex flex-col min-h-screen">
             <!-- Topbar -->
             <x-topbar :title="$title ?? 'Dashboard'" :breadcrumbs="$breadcrumbs ?? []" />
 

@@ -7,6 +7,15 @@
             <x-heroicon-o-bars-3 class="w-5 h-5" />
         </button>
 
+        <!-- Desktop sidebar toggle (compact/expand) -->
+        <button type="button"
+                onclick="window.toggleSidebarCollapse()"
+                class="hidden lg:inline-flex p-2 -ml-2 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-primary-500 cursor-pointer"
+                title="Tutup / Buka Sidebar"
+                aria-label="Tutup / Buka Sidebar">
+            <x-heroicon-o-bars-3-bottom-left class="w-5 h-5" />
+        </button>
+
         <!-- Breadcrumbs -->
         <nav class="flex items-center gap-2 text-sm" aria-label="Breadcrumb">
             <a href="{{ route('dashboard') }}" class="text-zinc-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
@@ -53,7 +62,7 @@
         <!-- Profile Dropdown -->
         <div class="relative">
             <button type="button" id="profile-dropdown-btn" class="flex items-center gap-2.5 p-1 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500" aria-expanded="false" aria-haspopup="true">
-                <div class="w-8 h-8 rounded-full bg-primary-600 text-white flex items-center justify-center font-semibold text-xs uppercase shadow-2xs">
+                <div class="w-8 h-8 rounded-full bg-primary-600 text-white dark:text-primary-500 flex items-center justify-center font-semibold text-xs uppercase shadow-2xs">
                     {{ substr(auth()->user()->name ?? 'U', 0, 2) }}
                 </div>
                 <div class="hidden md:flex flex-col text-left">

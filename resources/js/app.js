@@ -123,6 +123,20 @@
     applyThemeToDOM(currentPrimary, currentNeutral, currentMode);
 })();
 
+// Desktop Mini Sidebar Collapse Controller
+window.toggleSidebarCollapse = function () {
+    const isCollapsed = document.documentElement.classList.toggle('sidebar-collapsed');
+    try {
+        localStorage.setItem('flux_sidebar_collapsed', isCollapsed ? 'true' : 'false');
+    } catch (e) {}
+
+    const toggleBtn = document.getElementById('sidebar-toggle-btn');
+    if (toggleBtn) {
+        toggleBtn.setAttribute('title', isCollapsed ? 'Buka Sidebar' : 'Tutup Sidebar');
+        toggleBtn.setAttribute('aria-label', isCollapsed ? 'Buka Sidebar' : 'Tutup Sidebar');
+    }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     // Mobile Sidebar Drawer
     const sidebar = document.getElementById('mobile-sidebar');

@@ -34,3 +34,72 @@
         display: none;
     }
 }
+
+/* ==========================================================================
+   Desktop Collapsible Mini Sidebar
+   ========================================================================== */
+@media (min-width: 1024px) {
+    #desktop-sidebar {
+        transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    #main-wrapper {
+        transition: padding-left 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html.sidebar-collapsed #desktop-sidebar {
+        width: 5rem !important; /* 80px (w-20) */
+    }
+
+    html.sidebar-collapsed #main-wrapper {
+        padding-left: 5rem !important;
+    }
+
+    /* Hide text labels when collapsed */
+    html.sidebar-collapsed #desktop-sidebar .sidebar-text {
+        display: none !important;
+    }
+
+    /* Center navigation links and adjust padding */
+    html.sidebar-collapsed #desktop-sidebar .sidebar-nav-link {
+        justify-content: center !important;
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+
+    /* Section heading in collapsed state */
+    html.sidebar-collapsed #desktop-sidebar .sidebar-section-title {
+        display: none !important;
+    }
+
+    html.sidebar-collapsed #desktop-sidebar .sidebar-divider {
+        display: block !important;
+    }
+
+    /* Compact header in collapsed state */
+    html.sidebar-collapsed #desktop-sidebar .sidebar-header {
+        padding-left: 0.625rem !important;
+        padding-right: 0.625rem !important;
+        justify-content: center !important;
+        gap: 0.375rem !important;
+    }
+
+    /* Stack user avatar & logout button in collapsed state */
+    html.sidebar-collapsed #desktop-sidebar .sidebar-user-card {
+        flex-direction: column !important;
+        padding: 0.5rem 0.25rem !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+    }
+}
+
+/* Toggle button icon states */
+html.sidebar-collapsed .sidebar-icon-collapse {
+    display: none !important;
+}
+
+html:not(.sidebar-collapsed) .sidebar-icon-expand {
+    display: none !important;
+}
+
