@@ -26,7 +26,7 @@
                            value="{{ old('name') }}"
                            required
                            placeholder="Contoh: Budi Santoso"
-                           class="w-full px-3.5 py-2.5 text-sm rounded-xl border {{ $errors->has('name') ? 'border-rose-300 bg-rose-50/20 text-rose-900 focus:border-rose-500 focus:ring-rose-200' : 'border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:border-zinc-900 dark:focus:border-zinc-100 focus:ring-zinc-900/10' }} focus:outline-none focus:ring-2 transition-colors">
+                           class="w-full px-3.5 py-2.5 text-sm rounded-xl border {{ $errors->has('name') ? 'border-rose-300 bg-rose-50/20 text-rose-900 focus:border-rose-500 focus:ring-rose-200' : 'border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:border-primary-500 dark:focus:border-primary-400 focus:ring-primary-500/20' }} focus:outline-none focus:ring-2 transition-colors">
                     @error('name')
                         <p class="mt-1.5 text-xs text-rose-600 dark:text-rose-400 font-medium">{{ $message }}</p>
                     @enderror
@@ -43,7 +43,7 @@
                            value="{{ old('email') }}"
                            required
                            placeholder="budi@perusahaan.com"
-                           class="w-full px-3.5 py-2.5 text-sm rounded-xl border {{ $errors->has('email') ? 'border-rose-300 bg-rose-50/20 text-rose-900 focus:border-rose-500 focus:ring-rose-200' : 'border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:border-zinc-900 dark:focus:border-zinc-100 focus:ring-zinc-900/10' }} focus:outline-none focus:ring-2 transition-colors">
+                           class="w-full px-3.5 py-2.5 text-sm rounded-xl border {{ $errors->has('email') ? 'border-rose-300 bg-rose-50/20 text-rose-900 focus:border-rose-500 focus:ring-rose-200' : 'border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:border-primary-500 dark:focus:border-primary-400 focus:ring-primary-500/20' }} focus:outline-none focus:ring-2 transition-colors">
                     @error('email')
                         <p class="mt-1.5 text-xs text-rose-600 dark:text-rose-400 font-medium">{{ $message }}</p>
                     @enderror
@@ -60,7 +60,7 @@
                            required
                            autocomplete="new-password"
                            placeholder="Minimal 8 karakter"
-                           class="w-full px-3.5 py-2.5 text-sm rounded-xl border {{ $errors->has('password') ? 'border-rose-300 bg-rose-50/20 text-rose-900 focus:border-rose-500 focus:ring-rose-200' : 'border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:border-zinc-900 dark:focus:border-zinc-100 focus:ring-zinc-900/10' }} focus:outline-none focus:ring-2 transition-colors">
+                           class="w-full px-3.5 py-2.5 text-sm rounded-xl border {{ $errors->has('password') ? 'border-rose-300 bg-rose-50/20 text-rose-900 focus:border-rose-500 focus:ring-rose-200' : 'border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:border-primary-500 dark:focus:border-primary-400 focus:ring-primary-500/20' }} focus:outline-none focus:ring-2 transition-colors">
                     @error('password')
                         <p class="mt-1.5 text-xs text-rose-600 dark:text-rose-400 font-medium">{{ $message }}</p>
                     @enderror
@@ -77,7 +77,7 @@
                            required
                            autocomplete="new-password"
                            placeholder="Ulangi kata sandi"
-                           class="w-full px-3.5 py-2.5 text-sm rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:border-zinc-900 dark:focus:border-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-900/10 transition-colors">
+                           class="w-full px-3.5 py-2.5 text-sm rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:border-primary-500 dark:focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 transition-colors">
                 </div>
 
                 <!-- Actions -->
@@ -87,7 +87,7 @@
                         Batal
                     </a>
                     <button type="submit"
-                            class="px-5 py-2.5 text-sm font-semibold rounded-xl bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-zinc-200 text-white dark:text-zinc-900 shadow-xs focus:outline-none focus:ring-2 focus:ring-zinc-900/20 transition-colors">
+                            class="px-5 py-2.5 text-sm font-semibold rounded-xl bg-primary-600 hover:bg-primary-700 text-white shadow-xs focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors">
                         Simpan Pengguna
                     </button>
                 </div>

@@ -10,10 +10,18 @@ Starter kit dashboard admin yang ringan, rapi, responsif, dan mudah dikembangkan
   - Estetika minimalis, bersih, dan profesional ala Linear / Flux UI.
   - Border halus, radius konsisten (`rounded-xl`), palet netral (zinc/slate), dan fokus cincin aksesibel.
   - Tipografi modern menggunakan font *Instrument Sans*.
+- **🎨 Kustomisasi Tema Dinamis ("Make it your own."):**
+  - **18 Warna Primer:** Base, Red, Orange, Amber, Yellow, Lime, Green, Emerald, Teal, Cyan, Sky, Blue, Indigo, Violet, Purple, Fuchsia, Pink, Rose.
+  - **Palet Netral:** Slate, Gray, Zinc, Neutral, Stone, Mauve, Olive, Mist, Taupe.
+  - **Mode Tampilan:** Light & Dark mode switcher terintegrasi.
+  - **Live Preview & Persistensi:** Perubahan warna dan mode langsung terlihat seketika dan tersimpan di `localStorage` (dilengkapi proteksi anti-FOUC).
+- **Icon System (Blade Icons):**
+  - Menggunakan paket resmi [blade-ui-kit/blade-icons](https://github.com/blade-ui-kit/blade-icons) & `blade-ui-kit/blade-heroicons`.
+  - Terintegrasi penuh tanpa raw inline SVG yang berserakan.
 - **Layout & Navigasi Responsif:**
-  - Sidebar desktop dengan menu aktif dan profil pengguna.
+  - Sidebar desktop dengan menu aktif, pemilih tema, dan profil pengguna.
   - Drawer navigasi mobile dengan backdrop blur dan animasi transisi halus.
-  - Topbar dengan breadcrumbs dinamis dan dropdown profil pengguna.
+  - Topbar dengan breadcrumbs dinamis, tombol pemilih tema cepat, dan dropdown profil pengguna.
 - **Autentikasi Mandiri (Custom Session Auth):**
   - Dibuat mandiri tanpa starter kit resmi (Breeze/Jetstream).
   - Dilindungi middleware `auth`, login form dengan remember me, dan POST logout berproteksi CSRF.

@@ -10,11 +10,9 @@
             </p>
         </div>
         <div class="mt-4 sm:mt-0">
-            <a href="{{ route('tables.create') }}" class="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-xl bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-zinc-200 text-white dark:text-zinc-900 shadow-xs transition-colors">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                </svg>
-                Tambah Data
+            <a href="{{ route('tables.create') }}" class="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-xl bg-primary-600 hover:bg-primary-700 text-white shadow-xs transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500">
+                <x-heroicon-o-plus class="w-4 h-4" />
+                <span>Tambah Data</span>
             </a>
         </div>
     </div>
@@ -29,15 +27,13 @@
             <!-- Left: Search Box -->
             <div class="relative flex-1 max-w-md">
                 <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-zinc-400">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                    </svg>
+                    <x-heroicon-o-magnifying-glass class="w-4 h-4" />
                 </div>
                 <input type="text"
                        name="search"
                        value="{{ $search }}"
                        placeholder="Cari berdasarkan nama data..."
-                       class="w-full pl-10 pr-4 py-2 text-sm rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50/50 dark:bg-zinc-800/50 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:bg-white dark:focus:bg-zinc-800 focus:border-zinc-900 dark:focus:border-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-900/10 transition-colors">
+                       class="w-full pl-10 pr-4 py-2 text-sm rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50/50 dark:bg-zinc-800/50 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:bg-white dark:focus:bg-zinc-800 focus:border-primary-500 dark:focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 transition-colors">
             </div>
 
             <!-- Right: Filter Status & Per Page -->
@@ -48,7 +44,7 @@
                     <select id="status"
                             name="status"
                             onchange="this.form.submit()"
-                            class="px-3 py-2 text-xs font-medium rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-zinc-900/10">
+                            class="px-3 py-2 text-xs font-medium rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500">
                         <option value="" {{ empty($status) ? 'selected' : '' }}>Semua Status</option>
                         <option value="active" {{ $status === 'active' ? 'selected' : '' }}>Aktif</option>
                         <option value="inactive" {{ $status === 'inactive' ? 'selected' : '' }}>Nonaktif</option>
@@ -61,7 +57,7 @@
                     <select id="per_page"
                             name="per_page"
                             onchange="this.form.submit()"
-                            class="px-2.5 py-2 text-xs font-medium rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-zinc-900/10">
+                            class="px-2.5 py-2 text-xs font-medium rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500">
                         @foreach ($allowedPerPage as $opt)
                             <option value="{{ $opt }}" {{ $perPage === $opt ? 'selected' : '' }}>{{ $opt }}</option>
                         @endforeach
@@ -70,9 +66,7 @@
 
                 @if ($search !== '' || !empty($status))
                     <a href="{{ route('tables.index') }}" class="p-2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-xl transition-colors" title="Reset filter">
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                        </svg>
+                        <x-heroicon-o-x-mark class="w-4 h-4" />
                     </a>
                 @endif
             </div>
@@ -88,9 +82,9 @@
                         <!-- Column: Name (Sortable) -->
                         <th scope="col" class="py-3.5 pl-6 pr-3">
                             <a href="{{ route('tables.index', array_merge(request()->query(), ['sort' => 'name', 'direction' => ($sort === 'name' && $direction === 'asc') ? 'desc' : 'asc'])) }}"
-                               class="group inline-flex items-center gap-1.5 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
+                               class="group inline-flex items-center gap-1.5 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
                                 <span>Nama</span>
-                                <span class="text-zinc-400 group-hover:text-zinc-700 dark:group-hover:text-zinc-200">
+                                <span class="text-zinc-400 group-hover:text-primary-600">
                                     @if ($sort === 'name')
                                         @if ($direction === 'asc')
                                             ▲
@@ -98,9 +92,7 @@
                                             ▼
                                         @endif
                                     @else
-                                        <svg class="w-3.5 h-3.5 opacity-40 group-hover:opacity-100" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                                        </svg>
+                                        <span class="opacity-40 group-hover:opacity-100">↕</span>
                                     @endif
                                 </span>
                             </a>
@@ -114,9 +106,9 @@
                         <!-- Column: Status (Sortable) -->
                         <th scope="col" class="px-3 py-3.5">
                             <a href="{{ route('tables.index', array_merge(request()->query(), ['sort' => 'status', 'direction' => ($sort === 'status' && $direction === 'asc') ? 'desc' : 'asc'])) }}"
-                               class="group inline-flex items-center gap-1.5 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
+                               class="group inline-flex items-center gap-1.5 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
                                 <span>Status</span>
-                                <span class="text-zinc-400 group-hover:text-zinc-700 dark:group-hover:text-zinc-200">
+                                <span class="text-zinc-400 group-hover:text-primary-600">
                                     @if ($sort === 'status')
                                         @if ($direction === 'asc')
                                             ▲
@@ -124,9 +116,7 @@
                                             ▼
                                         @endif
                                     @else
-                                        <svg class="w-3.5 h-3.5 opacity-40 group-hover:opacity-100" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                                        </svg>
+                                        <span class="opacity-40 group-hover:opacity-100">↕</span>
                                     @endif
                                 </span>
                             </a>
@@ -135,9 +125,9 @@
                         <!-- Column: Created At (Sortable) -->
                         <th scope="col" class="px-3 py-3.5 hidden sm:table-cell">
                             <a href="{{ route('tables.index', array_merge(request()->query(), ['sort' => 'created_at', 'direction' => ($sort === 'created_at' && $direction === 'asc') ? 'desc' : 'asc'])) }}"
-                               class="group inline-flex items-center gap-1.5 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
+                               class="group inline-flex items-center gap-1.5 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
                                 <span>Tanggal Dibuat</span>
-                                <span class="text-zinc-400 group-hover:text-zinc-700 dark:group-hover:text-zinc-200">
+                                <span class="text-zinc-400 group-hover:text-primary-600">
                                     @if ($sort === 'created_at')
                                         @if ($direction === 'asc')
                                             ▲
@@ -145,9 +135,7 @@
                                             ▼
                                         @endif
                                     @else
-                                        <svg class="w-3.5 h-3.5 opacity-40 group-hover:opacity-100" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                                        </svg>
+                                        <span class="opacity-40 group-hover:opacity-100">↕</span>
                                     @endif
                                 </span>
                             </a>
@@ -197,7 +185,7 @@
                             <td class="py-4 pl-3 pr-6 text-right whitespace-nowrap">
                                 <div class="flex items-center justify-end gap-2">
                                     <a href="{{ route('tables.edit', $table->id) }}"
-                                       class="px-2.5 py-1.5 text-xs font-semibold rounded-lg text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+                                       class="px-2.5 py-1.5 text-xs font-semibold rounded-lg text-zinc-700 dark:text-zinc-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
                                         Edit
                                     </a>
                                     <button type="button"
@@ -218,9 +206,7 @@
                             <td colspan="5" class="py-16 text-center">
                                 <div class="max-w-xs mx-auto">
                                     <div class="w-12 h-12 rounded-2xl bg-zinc-100 dark:bg-zinc-800 text-zinc-400 flex items-center justify-center mx-auto mb-3">
-                                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m6 4.125l2.25 2.25m0 0l2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
-                                        </svg>
+                                        <x-heroicon-o-archive-box class="w-6 h-6" />
                                     </div>
                                     <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
                                         Tidak ada data yang ditemukan
@@ -238,7 +224,7 @@
                                                 Bersihkan Filter
                                             </a>
                                         @else
-                                            <a href="{{ route('tables.create') }}" class="inline-flex items-center px-3.5 py-2 text-xs font-semibold rounded-xl bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200">
+                                            <a href="{{ route('tables.create') }}" class="inline-flex items-center px-3.5 py-2 text-xs font-semibold rounded-xl bg-primary-600 hover:bg-primary-700 text-white shadow-xs">
                                                 Tambah Data Pertama
                                             </a>
                                         @endif

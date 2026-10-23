@@ -10,11 +10,9 @@
             </p>
         </div>
         <div class="mt-4 sm:mt-0">
-            <a href="{{ route('users.create') }}" class="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-xl bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-zinc-200 text-white dark:text-zinc-900 shadow-xs transition-colors">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
-                </svg>
-                Tambah Pengguna
+            <a href="{{ route('users.create') }}" class="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-xl bg-primary-600 hover:bg-primary-700 text-white shadow-xs transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500">
+                <x-heroicon-o-user-plus class="w-4 h-4" />
+                <span>Tambah Pengguna</span>
             </a>
         </div>
     </div>
@@ -28,15 +26,13 @@
             <!-- Left: Search Box -->
             <div class="relative flex-1 max-w-md">
                 <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-zinc-400">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                    </svg>
+                    <x-heroicon-o-magnifying-glass class="w-4 h-4" />
                 </div>
                 <input type="text"
                        name="search"
                        value="{{ $search }}"
                        placeholder="Cari berdasarkan nama atau email pengguna..."
-                       class="w-full pl-10 pr-4 py-2 text-sm rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50/50 dark:bg-zinc-800/50 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:bg-white dark:focus:bg-zinc-800 focus:border-zinc-900 dark:focus:border-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-900/10 transition-colors">
+                       class="w-full pl-10 pr-4 py-2 text-sm rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50/50 dark:bg-zinc-800/50 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:bg-white dark:focus:bg-zinc-800 focus:border-primary-500 dark:focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 transition-colors">
             </div>
 
             <!-- Right: Per Page & Reset -->
@@ -46,7 +42,7 @@
                     <select id="per_page"
                             name="per_page"
                             onchange="this.form.submit()"
-                            class="px-2.5 py-2 text-xs font-medium rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-zinc-900/10">
+                            class="px-2.5 py-2 text-xs font-medium rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500">
                         @foreach ($allowedPerPage as $opt)
                             <option value="{{ $opt }}" {{ $perPage === $opt ? 'selected' : '' }}>{{ $opt }}</option>
                         @endforeach
@@ -55,9 +51,7 @@
 
                 @if ($search !== '')
                     <a href="{{ route('users.index') }}" class="p-2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-xl transition-colors" title="Reset pencarian">
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                        </svg>
+                        <x-heroicon-o-x-mark class="w-4 h-4" />
                     </a>
                 @endif
             </div>
@@ -73,9 +67,9 @@
                         <!-- Column: User/Name (Sortable) -->
                         <th scope="col" class="py-3.5 pl-6 pr-3">
                             <a href="{{ route('users.index', array_merge(request()->query(), ['sort' => 'name', 'direction' => ($sort === 'name' && $direction === 'asc') ? 'desc' : 'asc'])) }}"
-                               class="group inline-flex items-center gap-1.5 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
+                               class="group inline-flex items-center gap-1.5 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
                                 <span>Nama Lengkap</span>
-                                <span class="text-zinc-400 group-hover:text-zinc-700 dark:group-hover:text-zinc-200">
+                                <span class="text-zinc-400 group-hover:text-primary-600">
                                     @if ($sort === 'name')
                                         @if ($direction === 'asc')
                                             ▲
@@ -83,9 +77,7 @@
                                             ▼
                                         @endif
                                     @else
-                                        <svg class="w-3.5 h-3.5 opacity-40 group-hover:opacity-100" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                                        </svg>
+                                        <span class="opacity-40 group-hover:opacity-100">↕</span>
                                     @endif
                                 </span>
                             </a>
@@ -94,9 +86,9 @@
                         <!-- Column: Email (Sortable) -->
                         <th scope="col" class="px-3 py-3.5">
                             <a href="{{ route('users.index', array_merge(request()->query(), ['sort' => 'email', 'direction' => ($sort === 'email' && $direction === 'asc') ? 'desc' : 'asc'])) }}"
-                               class="group inline-flex items-center gap-1.5 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
+                               class="group inline-flex items-center gap-1.5 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
                                 <span>Email</span>
-                                <span class="text-zinc-400 group-hover:text-zinc-700 dark:group-hover:text-zinc-200">
+                                <span class="text-zinc-400 group-hover:text-primary-600">
                                     @if ($sort === 'email')
                                         @if ($direction === 'asc')
                                             ▲
@@ -104,9 +96,7 @@
                                             ▼
                                         @endif
                                     @else
-                                        <svg class="w-3.5 h-3.5 opacity-40 group-hover:opacity-100" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                                        </svg>
+                                        <span class="opacity-40 group-hover:opacity-100">↕</span>
                                     @endif
                                 </span>
                             </a>
@@ -115,9 +105,9 @@
                         <!-- Column: Created At (Sortable) -->
                         <th scope="col" class="px-3 py-3.5 hidden sm:table-cell">
                             <a href="{{ route('users.index', array_merge(request()->query(), ['sort' => 'created_at', 'direction' => ($sort === 'created_at' && $direction === 'asc') ? 'desc' : 'asc'])) }}"
-                               class="group inline-flex items-center gap-1.5 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
+                               class="group inline-flex items-center gap-1.5 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
                                 <span>Terdaftar Sejak</span>
-                                <span class="text-zinc-400 group-hover:text-zinc-700 dark:group-hover:text-zinc-200">
+                                <span class="text-zinc-400 group-hover:text-primary-600">
                                     @if ($sort === 'created_at')
                                         @if ($direction === 'asc')
                                             ▲
@@ -125,9 +115,7 @@
                                             ▼
                                         @endif
                                     @else
-                                        <svg class="w-3.5 h-3.5 opacity-40 group-hover:opacity-100" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                                        </svg>
+                                        <span class="opacity-40 group-hover:opacity-100">↕</span>
                                     @endif
                                 </span>
                             </a>
@@ -146,13 +134,13 @@
                             <!-- Name + Avatar -->
                             <td class="py-4 pl-6 pr-3 font-medium text-zinc-900 dark:text-zinc-100">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-medium text-xs flex items-center justify-center flex-shrink-0 uppercase border border-zinc-200 dark:border-zinc-700">
+                                    <div class="w-8 h-8 rounded-full bg-primary-100 dark:bg-primary-950/60 text-primary-700 dark:text-primary-300 font-medium text-xs flex items-center justify-center flex-shrink-0 uppercase border border-primary-200 dark:border-primary-800">
                                         {{ substr($user->name, 0, 2) }}
                                     </div>
                                     <div class="flex items-center gap-2">
                                         <span class="font-semibold">{{ $user->name }}</span>
                                         @if ($user->id === $currentUserId)
-                                            <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">
+                                            <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-primary-50 dark:bg-primary-950/40 text-primary-700 dark:text-primary-300 border border-primary-200 dark:border-primary-800">
                                                 Anda
                                             </span>
                                         @endif
@@ -174,7 +162,7 @@
                             <td class="py-4 pl-3 pr-6 text-right whitespace-nowrap">
                                 <div class="flex items-center justify-end gap-2">
                                     <a href="{{ route('users.edit', $user->id) }}"
-                                       class="px-2.5 py-1.5 text-xs font-semibold rounded-lg text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+                                       class="px-2.5 py-1.5 text-xs font-semibold rounded-lg text-zinc-700 dark:text-zinc-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
                                         Edit
                                     </a>
 
@@ -206,9 +194,7 @@
                             <td colspan="4" class="py-16 text-center">
                                 <div class="max-w-xs mx-auto">
                                     <div class="w-12 h-12 rounded-2xl bg-zinc-100 dark:bg-zinc-800 text-zinc-400 flex items-center justify-center mx-auto mb-3">
-                                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
-                                        </svg>
+                                        <x-heroicon-o-users class="w-6 h-6" />
                                     </div>
                                     <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
                                         Tidak ada pengguna ditemukan
@@ -226,7 +212,7 @@
                                                 Reset Pencarian
                                             </a>
                                         @else
-                                            <a href="{{ route('users.create') }}" class="inline-flex items-center px-3.5 py-2 text-xs font-semibold rounded-xl bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200">
+                                            <a href="{{ route('users.create') }}" class="inline-flex items-center px-3.5 py-2 text-xs font-semibold rounded-xl bg-primary-600 hover:bg-primary-700 text-white shadow-xs">
                                                 Tambah Pengguna
                                             </a>
                                         @endif

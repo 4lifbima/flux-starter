@@ -7,6 +7,24 @@
 
     <title>{{ isset($title) ? $title . ' - ' . config('app.name', 'Flux Starter') : config('app.name', 'Flux Starter') }}</title>
 
+    <!-- Anti-FOUC Theme Script -->
+    <script>
+        (function () {
+            try {
+                const primary = localStorage.getItem('flux_theme_primary') || 'orange';
+                const neutral = localStorage.getItem('flux_theme_neutral') || 'neutral';
+                const mode = localStorage.getItem('flux_theme_mode') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-primary', primary);
+                document.documentElement.setAttribute('data-neutral', neutral);
+                if (mode === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            } catch (e) {}
+        })();
+    </script>
+
     <!-- Google Fonts / Instrument Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +33,7 @@
     <!-- Vite Assets -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="h-full text-zinc-900 dark:text-zinc-100 antialiased font-sans selection:bg-zinc-900 selection:text-white dark:selection:bg-zinc-100 dark:selection:text-zinc-900">
+<body class="h-full text-zinc-900 dark:text-zinc-100 antialiased font-sans selection:bg-primary-600 selection:text-white transition-colors duration-150">
     <div class="min-h-full">
         <!-- Sidebar (Desktop & Mobile Drawer) -->
         <x-sidebar />
@@ -33,12 +51,21 @@
             <!-- Footer -->
             <footer class="py-4 px-4 sm:px-6 lg:px-8 border-t border-zinc-200/80 dark:border-zinc-800 text-center text-xs text-zinc-400">
                 <div class="flex flex-col sm:flex-row items-center justify-between gap-2 max-w-7xl mx-auto">
-                    <span>Flux-Inspired Laravel Dashboard Starter Kit</span>
+                    <div class="flex items-center gap-2">
+                        <span>Flux-Inspired Laravel Dashboard Starter Kit</span>
+                        <button type="button" onclick="window.openThemeCustomizer()" class="text-primary-600 dark:text-primary-400 hover:underline inline-flex items-center gap-1 font-medium">
+                            <x-heroicon-o-swatch class="w-3.5 h-3.5" />
+                            <span>Ganti Tema</span>
+                        </button>
+                    </div>
                     <span>Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})</span>
                 </div>
             </footer>
         </div>
     </div>
+
+    <!-- Theme Customizer Modal -->
+    <x-theme-customizer />
 
     <!-- Reusable Toast Notification Container (Top Right) -->
     <x-toast-container />

@@ -28,7 +28,7 @@
                            required
                            maxlength="150"
                            placeholder="Contoh: Inventaris Kantor Cabang"
-                           class="w-full px-3.5 py-2.5 text-sm rounded-xl border {{ $errors->has('name') ? 'border-rose-300 bg-rose-50/20 text-rose-900 focus:border-rose-500 focus:ring-rose-200' : 'border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:border-zinc-900 dark:focus:border-zinc-100 focus:ring-zinc-900/10' }} focus:outline-none focus:ring-2 transition-colors">
+                           class="w-full px-3.5 py-2.5 text-sm rounded-xl border {{ $errors->has('name') ? 'border-rose-300 bg-rose-50/20 text-rose-900 focus:border-rose-500 focus:ring-rose-200' : 'border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:border-primary-500 dark:focus:border-primary-400 focus:ring-primary-500/20' }} focus:outline-none focus:ring-2 transition-colors">
                     @error('name')
                         <p class="mt-1.5 text-xs text-rose-600 dark:text-rose-400 font-medium">{{ $message }}</p>
                     @enderror
@@ -43,7 +43,7 @@
                               name="description"
                               rows="4"
                               placeholder="Keterangan singkat mengenai data ini (opsional)..."
-                              class="w-full px-3.5 py-2.5 text-sm rounded-xl border {{ $errors->has('description') ? 'border-rose-300 bg-rose-50/20 text-rose-900 focus:border-rose-500 focus:ring-rose-200' : 'border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:border-zinc-900 dark:focus:border-zinc-100 focus:ring-zinc-900/10' }} focus:outline-none focus:ring-2 transition-colors">{{ old('description', $table->description) }}</textarea>
+                              class="w-full px-3.5 py-2.5 text-sm rounded-xl border {{ $errors->has('description') ? 'border-rose-300 bg-rose-50/20 text-rose-900 focus:border-rose-500 focus:ring-rose-200' : 'border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:border-primary-500 dark:focus:border-primary-400 focus:ring-primary-500/20' }} focus:outline-none focus:ring-2 transition-colors">{{ old('description', $table->description) }}</textarea>
                     @error('description')
                         <p class="mt-1.5 text-xs text-rose-600 dark:text-rose-400 font-medium">{{ $message }}</p>
                     @enderror
@@ -56,7 +56,7 @@
                     </label>
                     <select id="status"
                             name="status"
-                            class="w-full px-3.5 py-2.5 text-sm rounded-xl border {{ $errors->has('status') ? 'border-rose-300 bg-rose-50/20 text-rose-900 focus:border-rose-500 focus:ring-rose-200' : 'border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:border-zinc-900 dark:focus:border-zinc-100 focus:ring-zinc-900/10' }} focus:outline-none focus:ring-2 transition-colors">
+                            class="w-full px-3.5 py-2.5 text-sm rounded-xl border {{ $errors->has('status') ? 'border-rose-300 bg-rose-50/20 text-rose-900 focus:border-rose-500 focus:ring-rose-200' : 'border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:border-primary-500 dark:focus:border-primary-400 focus:ring-primary-500/20' }} focus:outline-none focus:ring-2 transition-colors">
                         <option value="active" {{ old('status', $table->status) === 'active' ? 'selected' : '' }}>Aktif</option>
                         <option value="inactive" {{ old('status', $table->status) === 'inactive' ? 'selected' : '' }}>Nonaktif</option>
                     </select>
@@ -72,7 +72,7 @@
                         Batal
                     </a>
                     <button type="submit"
-                            class="px-5 py-2.5 text-sm font-semibold rounded-xl bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-zinc-200 text-white dark:text-zinc-900 shadow-xs focus:outline-none focus:ring-2 focus:ring-zinc-900/20 transition-colors">
+                            class="px-5 py-2.5 text-sm font-semibold rounded-xl bg-primary-600 hover:bg-primary-700 text-white shadow-xs focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors">
                         Simpan Perubahan
                     </button>
                 </div>
