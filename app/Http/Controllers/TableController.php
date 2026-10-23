@@ -73,7 +73,7 @@ class TableController extends Controller
         // Paginate and retain query parameters
         $tables = $query->paginate($perPage)->withQueryString();
 
-        return view('tables.index', [
+        $viewData = [
             'tables' => $tables,
             'search' => $search,
             'status' => $status,
@@ -81,7 +81,13 @@ class TableController extends Controller
             'direction' => $direction,
             'perPage' => $perPage,
             'allowedPerPage' => $this->allowedPerPage,
-        ]);
+        ];
+
+        if ($request->ajax()) {
+            return view('tables._table', $viewData);
+        }
+
+        return view('tables.index', $viewData);
     }
 
     /**

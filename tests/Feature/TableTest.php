@@ -42,6 +42,21 @@ class TableTest extends TestCase
         $response->assertDontSee('Database Backup Beta');
     }
 
+    public function test_user_can_search_tables_via_ajax_request(): void
+    {
+        $target = Table::factory()->create(['name' => 'Data Ajax Khusus']);
+        $other = Table::factory()->create(['name' => 'Data Lain']);
+
+        $response = $this->actingAs($this->user)->get(route('tables.index', ['search' => 'Khusus']), [
+            'X-Requested-With' => 'XMLHttpRequest',
+        ]);
+
+        $response->assertStatus(200);
+        $response->assertViewIs('tables._table');
+        $response->assertSee('Data Ajax Khusus');
+        $response->assertDontSee('Data Lain');
+    }
+
     public function test_user_can_filter_tables_by_status(): void
     {
         $active = Table::factory()->create(['name' => 'Tabel Aktif', 'status' => 'active']);

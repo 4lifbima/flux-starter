@@ -6,7 +6,7 @@
                 Pengguna (Users)
             </h1>
             <p class="mt-1 text-sm text-zinc-500">
-                Kelola akun pengguna dan administrator dengan kontrol akses dan proteksi keamanan sistem.
+                Kelola akun pengguna dan administrator dengan kontrol akses, pencarian instan, dan proteksi keamanan sistem.
             </p>
         </div>
         <div class="mt-4 sm:mt-0">
@@ -17,31 +17,48 @@
         </div>
     </div>
 
-    <!-- Filter & Search Toolbar -->
-    <div class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl p-4 mb-5 shadow-2xs">
-        <form method="GET" action="{{ route('users.index') }}" class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
-            <input type="hidden" name="sort" value="{{ $sort }}">
-            <input type="hidden" name="direction" value="{{ $direction }}">
-
-            <!-- Left: Search Box -->
+    <!-- Filter & Search Toolbar (Instant Reactive Search) -->
+    <div class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl p-4 mb-5 shadow-2xs">
+        <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+            
+            <!-- Left: Real-time Live Search Input -->
             <div class="relative flex-1 max-w-md">
+                <!-- Search Icon / Dynamic Loading Spinner -->
                 <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-zinc-400">
-                    <x-heroicon-o-magnifying-glass class="w-4 h-4" />
+                    <span id="user-search-idle-icon">
+                        <x-heroicon-o-magnifying-glass class="w-4 h-4" />
+                    </span>
+                    <span id="user-search-loading-icon" class="hidden">
+                        <svg class="animate-spin w-4 h-4 text-primary-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                        </svg>
+                    </span>
                 </div>
+
                 <input type="text"
-                       name="search"
+                       id="user-search-input"
                        value="{{ $search }}"
-                       placeholder="Cari berdasarkan nama atau email pengguna..."
-                       class="w-full pl-10 pr-4 py-2 text-sm rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50/50 dark:bg-zinc-800/50 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:bg-white dark:focus:bg-zinc-800 focus:border-primary-500 dark:focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 transition-colors">
+                       oninput="window.userFilter.onSearchInput(this.value)"
+                       autocomplete="off"
+                       placeholder="Cari nama atau email secara instan..."
+                       class="w-full pl-10 pr-10 py-2 text-sm rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50/50 dark:bg-zinc-800/50 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:bg-white dark:focus:bg-zinc-800 focus:border-primary-500 dark:focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 transition-colors">
+
+                <!-- Clear Search Input button -->
+                <button type="button"
+                        id="user-search-clear-btn"
+                        onclick="window.userFilter.clearSearch()"
+                        class="{{ $search !== '' ? '' : 'hidden' }} absolute inset-y-0 right-0 pr-3 flex items-center text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200">
+                    <x-heroicon-o-x-mark class="w-4 h-4" />
+                </button>
             </div>
 
             <!-- Right: Per Page & Reset -->
             <div class="flex items-center gap-3">
                 <div class="flex items-center gap-2">
-                    <label for="per_page" class="text-xs font-medium text-zinc-500 whitespace-nowrap">Baris:</label>
-                    <select id="per_page"
-                            name="per_page"
-                            onchange="this.form.submit()"
+                    <label for="user-per-page-select" class="text-xs font-medium text-zinc-500 whitespace-nowrap">Baris:</label>
+                    <select id="user-per-page-select"
+                            onchange="window.userFilter.onPerPageChange(this.value)"
                             class="px-2.5 py-2 text-xs font-medium rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500">
                         @foreach ($allowedPerPage as $opt)
                             <option value="{{ $opt }}" {{ $perPage === $opt ? 'selected' : '' }}>{{ $opt }}</option>
@@ -49,196 +66,173 @@
                     </select>
                 </div>
 
-                @if ($search !== '')
-                    <a href="{{ route('users.index') }}" class="p-2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-xl transition-colors" title="Reset pencarian">
-                        <x-heroicon-o-x-mark class="w-4 h-4" />
-                    </a>
-                @endif
+                <!-- Reset Button -->
+                <button type="button"
+                        id="user-reset-btn"
+                        onclick="window.userFilter.reset()"
+                        class="{{ $search !== '' ? '' : 'hidden' }} p-2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-xl transition-colors"
+                        title="Reset pencarian">
+                    <x-heroicon-o-x-mark class="w-4 h-4" />
+                </button>
             </div>
-        </form>
-    </div>
-
-    <!-- Data Table Container -->
-    <div class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl shadow-2xs overflow-hidden">
-        <div class="overflow-x-auto">
-            <table class="w-full text-left text-sm">
-                <thead class="bg-zinc-50/80 dark:bg-zinc-800/50 border-b border-zinc-200/80 dark:border-zinc-800 text-[11px] font-semibold text-zinc-500 uppercase tracking-wider">
-                    <tr>
-                        <!-- Column: User/Name (Sortable) -->
-                        <th scope="col" class="py-3.5 pl-6 pr-3">
-                            <a href="{{ route('users.index', array_merge(request()->query(), ['sort' => 'name', 'direction' => ($sort === 'name' && $direction === 'asc') ? 'desc' : 'asc'])) }}"
-                               class="group inline-flex items-center gap-1.5 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-                                <span>Nama Lengkap</span>
-                                <span class="text-zinc-400 group-hover:text-primary-600">
-                                    @if ($sort === 'name')
-                                        @if ($direction === 'asc')
-                                            ▲
-                                        @else
-                                            ▼
-                                        @endif
-                                    @else
-                                        <span class="opacity-40 group-hover:opacity-100">↕</span>
-                                    @endif
-                                </span>
-                            </a>
-                        </th>
-
-                        <!-- Column: Email (Sortable) -->
-                        <th scope="col" class="px-3 py-3.5">
-                            <a href="{{ route('users.index', array_merge(request()->query(), ['sort' => 'email', 'direction' => ($sort === 'email' && $direction === 'asc') ? 'desc' : 'asc'])) }}"
-                               class="group inline-flex items-center gap-1.5 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-                                <span>Email</span>
-                                <span class="text-zinc-400 group-hover:text-primary-600">
-                                    @if ($sort === 'email')
-                                        @if ($direction === 'asc')
-                                            ▲
-                                        @else
-                                            ▼
-                                        @endif
-                                    @else
-                                        <span class="opacity-40 group-hover:opacity-100">↕</span>
-                                    @endif
-                                </span>
-                            </a>
-                        </th>
-
-                        <!-- Column: Created At (Sortable) -->
-                        <th scope="col" class="px-3 py-3.5 hidden sm:table-cell">
-                            <a href="{{ route('users.index', array_merge(request()->query(), ['sort' => 'created_at', 'direction' => ($sort === 'created_at' && $direction === 'asc') ? 'desc' : 'asc'])) }}"
-                               class="group inline-flex items-center gap-1.5 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-                                <span>Terdaftar Sejak</span>
-                                <span class="text-zinc-400 group-hover:text-primary-600">
-                                    @if ($sort === 'created_at')
-                                        @if ($direction === 'asc')
-                                            ▲
-                                        @else
-                                            ▼
-                                        @endif
-                                    @else
-                                        <span class="opacity-40 group-hover:opacity-100">↕</span>
-                                    @endif
-                                </span>
-                            </a>
-                        </th>
-
-                        <!-- Column: Actions -->
-                        <th scope="col" class="relative py-3.5 pl-3 pr-6 text-right">
-                            <span class="sr-only">Aksi</span>
-                            Aksi
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-zinc-200/70 dark:divide-zinc-800">
-                    @forelse ($users as $user)
-                        <tr class="hover:bg-zinc-50/70 dark:hover:bg-zinc-800/40 transition-colors">
-                            <!-- Name + Avatar -->
-                            <td class="py-4 pl-6 pr-3 font-medium text-zinc-900 dark:text-zinc-100">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-8 h-8 rounded-full bg-primary-100 dark:bg-primary-950/60 text-primary-700 dark:text-primary-300 font-medium text-xs flex items-center justify-center flex-shrink-0 uppercase border border-primary-200 dark:border-primary-800">
-                                        {{ substr($user->name, 0, 2) }}
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <span class="font-semibold">{{ $user->name }}</span>
-                                        @if ($user->id === $currentUserId)
-                                            <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-primary-50 dark:bg-primary-950/40 text-primary-700 dark:text-primary-300 border border-primary-200 dark:border-primary-800">
-                                                Anda
-                                            </span>
-                                        @endif
-                                    </div>
-                                </div>
-                            </td>
-
-                            <!-- Email -->
-                            <td class="px-3 py-4 text-zinc-600 dark:text-zinc-400">
-                                {{ $user->email }}
-                            </td>
-
-                            <!-- Date -->
-                            <td class="px-3 py-4 text-xs text-zinc-500 hidden sm:table-cell">
-                                {{ $user->created_at->format('d M Y, H:i') }}
-                            </td>
-
-                            <!-- Actions with Security Guard Checks -->
-                            <td class="py-4 pl-3 pr-6 text-right whitespace-nowrap">
-                                <div class="flex items-center justify-end gap-2">
-                                    <a href="{{ route('users.edit', $user->id) }}"
-                                       class="px-2.5 py-1.5 text-xs font-semibold rounded-lg text-zinc-700 dark:text-zinc-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
-                                        Edit
-                                    </a>
-
-                                    @if ($user->id === $currentUserId)
-                                        <span class="px-2.5 py-1.5 text-xs font-semibold rounded-lg text-zinc-400 cursor-not-allowed" title="Anda tidak dapat menghapus akun Anda sendiri">
-                                            Hapus
-                                        </span>
-                                    @elseif ($totalUsersCount <= 1)
-                                        <span class="px-2.5 py-1.5 text-xs font-semibold rounded-lg text-zinc-400 cursor-not-allowed" title="Tidak dapat menghapus user terakhir">
-                                            Hapus
-                                        </span>
-                                    @else
-                                        <button type="button"
-                                                onclick="window.openConfirmModal({
-                                                    title: 'Hapus Pengguna',
-                                                    message: 'Apakah Anda yakin ingin menghapus akun \'{{ addslashes($user->name) }}\' ({{ $user->email }})? Tindakan ini tidak dapat dibatalkan.',
-                                                    action: '{{ route('users.destroy', $user->id) }}',
-                                                    confirmText: 'Ya, Hapus Pengguna'
-                                                })"
-                                                class="px-2.5 py-1.5 text-xs font-semibold rounded-lg text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors">
-                                            Hapus
-                                        </button>
-                                    @endif
-                                </div>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="4" class="py-16 text-center">
-                                <div class="max-w-xs mx-auto">
-                                    <div class="w-12 h-12 rounded-2xl bg-zinc-100 dark:bg-zinc-800 text-zinc-400 flex items-center justify-center mx-auto mb-3">
-                                        <x-heroicon-o-users class="w-6 h-6" />
-                                    </div>
-                                    <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-                                        Tidak ada pengguna ditemukan
-                                    </h3>
-                                    <p class="mt-1 text-xs text-zinc-500">
-                                        @if ($search !== '')
-                                            Coba sesuaikan kata kunci pencarian Anda.
-                                        @else
-                                            Belum ada pengguna lain terdaftar di sistem.
-                                        @endif
-                                    </p>
-                                    <div class="mt-4">
-                                        @if ($search !== '')
-                                            <a href="{{ route('users.index') }}" class="inline-flex items-center px-3.5 py-2 text-xs font-semibold rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50">
-                                                Reset Pencarian
-                                            </a>
-                                        @else
-                                            <a href="{{ route('users.create') }}" class="inline-flex items-center px-3.5 py-2 text-xs font-semibold rounded-xl bg-primary-600 hover:bg-primary-700 text-white shadow-xs">
-                                                Tambah Pengguna
-                                            </a>
-                                        @endif
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
         </div>
-
-        <!-- Pagination Bar -->
-        @if ($users->hasPages())
-            <div class="px-6 py-4 border-t border-zinc-200/80 dark:border-zinc-800 flex items-center justify-between">
-                <div class="text-xs text-zinc-500">
-                    Menampilkan <span class="font-medium text-zinc-900 dark:text-zinc-100">{{ $users->firstItem() ?? 0 }}</span> sampai <span class="font-medium text-zinc-900 dark:text-zinc-100">{{ $users->lastItem() ?? 0 }}</span> dari <span class="font-medium text-zinc-900 dark:text-zinc-100">{{ $users->total() }}</span> pengguna
-                </div>
-                <div>
-                    {{ $users->links() }}
-                </div>
-            </div>
-        @else
-            <div class="px-6 py-3.5 border-t border-zinc-200/80 dark:border-zinc-800 text-xs text-zinc-500">
-                Total: <span class="font-medium text-zinc-900 dark:text-zinc-100">{{ $users->total() }}</span> pengguna
-            </div>
-        @endif
     </div>
+
+    <!-- Data Table Container (Dynamically Swapped via AJAX) -->
+    <div id="user-content-area" class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl shadow-2xs overflow-hidden transition-opacity duration-150">
+        @include('users._table')
+    </div>
+
+    <!-- Live AJAX Controller Script for Users -->
+    <script>
+        (function () {
+            let debounceTimer = null;
+            let currentRequest = null;
+
+            window.userFilter = {
+                state: {
+                    search: @json($search),
+                    sort: @json($sort),
+                    direction: @json($direction),
+                    per_page: @json($perPage),
+                    page: 1
+                },
+
+                buildUrl: function () {
+                    const params = new URLSearchParams();
+                    if (this.state.search) params.set('search', this.state.search);
+                    if (this.state.sort) params.set('sort', this.state.sort);
+                    if (this.state.direction) params.set('direction', this.state.direction);
+                    if (this.state.per_page) params.set('per_page', this.state.per_page);
+                    if (this.state.page && this.state.page > 1) params.set('page', this.state.page);
+
+                    const qs = params.toString();
+                    return '{{ route('users.index') }}' + (qs ? '?' + qs : '');
+                },
+
+                fetchData: function () {
+                    const url = this.buildUrl();
+                    const container = document.getElementById('user-content-area');
+                    const idleIcon = document.getElementById('user-search-idle-icon');
+                    const loadingIcon = document.getElementById('user-search-loading-icon');
+                    const clearBtn = document.getElementById('user-search-clear-btn');
+                    const resetBtn = document.getElementById('user-reset-btn');
+
+                    if (clearBtn) {
+                        if (this.state.search) clearBtn.classList.remove('hidden');
+                        else clearBtn.classList.add('hidden');
+                    }
+                    if (resetBtn) {
+                        if (this.state.search) resetBtn.classList.remove('hidden');
+                        else resetBtn.classList.add('hidden');
+                    }
+
+                    idleIcon?.classList.add('hidden');
+                    loadingIcon?.classList.remove('hidden');
+                    if (container) container.style.opacity = '0.65';
+
+                    if (currentRequest) {
+                        currentRequest.abort();
+                    }
+                    const controller = new AbortController();
+                    currentRequest = controller;
+
+                    fetch(url, {
+                        signal: controller.signal,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Accept': 'text/html'
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) throw new Error('Network response was not ok');
+                        return response.text();
+                    })
+                    .then(html => {
+                        if (container) {
+                            container.innerHTML = html;
+                            container.style.opacity = '1';
+                        }
+                        window.history.replaceState(null, '', url);
+                    })
+                    .catch(err => {
+                        if (err.name !== 'AbortError') {
+                            console.error('Fetch error:', err);
+                            if (container) container.style.opacity = '1';
+                        }
+                    })
+                    .finally(() => {
+                        idleIcon?.classList.remove('hidden');
+                        loadingIcon?.classList.add('hidden');
+                    });
+                },
+
+                onSearchInput: function (val) {
+                    this.state.search = val.trim();
+                    this.state.page = 1;
+
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(() => {
+                        this.fetchData();
+                    }, 250);
+                },
+
+                clearSearch: function () {
+                    const input = document.getElementById('user-search-input');
+                    if (input) {
+                        input.value = '';
+                        input.focus();
+                    }
+                    this.onSearchInput('');
+                },
+
+                onPerPageChange: function (val) {
+                    this.state.per_page = val;
+                    this.state.page = 1;
+                    this.fetchData();
+                },
+
+                sort: function (column) {
+                    if (this.state.sort === column) {
+                        this.state.direction = this.state.direction === 'asc' ? 'desc' : 'asc';
+                    } else {
+                        this.state.sort = column;
+                        this.state.direction = 'asc';
+                    }
+                    this.state.page = 1;
+                    this.fetchData();
+                },
+
+                goToPage: function (page) {
+                    this.state.page = page;
+                    this.fetchData();
+                },
+
+                reset: function () {
+                    this.state.search = '';
+                    this.state.page = 1;
+
+                    const searchInput = document.getElementById('user-search-input');
+                    if (searchInput) searchInput.value = '';
+
+                    this.fetchData();
+                }
+            };
+
+            // Intercept pagination clicks dynamically inside #user-content-area
+            document.addEventListener('click', function (e) {
+                const link = e.target.closest('#user-content-area .user-pagination-links a');
+                if (link && link.href) {
+                    e.preventDefault();
+                    try {
+                        const urlObj = new URL(link.href);
+                        const page = urlObj.searchParams.get('page') || 1;
+                        window.userFilter.goToPage(page);
+                    } catch (err) {
+                        window.location.href = link.href;
+                    }
+                }
+            });
+        })();
+    </script>
 </x-app-layout>

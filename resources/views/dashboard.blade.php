@@ -10,10 +10,6 @@
             </p>
         </div>
         <div class="mt-4 sm:mt-0 flex flex-wrap items-center gap-2.5">
-            <button type="button" onclick="window.openThemeCustomizer()" class="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-700/50 shadow-2xs transition-colors">
-                <x-heroicon-o-swatch class="w-4 h-4 text-primary-600 dark:text-primary-400" />
-                <span>Pilih Tema</span>
-            </button>
             <a href="{{ route('tables.create') }}" class="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-700/50 shadow-2xs transition-colors">
                 <x-heroicon-o-plus class="w-4 h-4 text-zinc-500" />
                 <span>Tambah Table</span>
@@ -28,7 +24,7 @@
     <!-- Stat Cards Grid -->
     <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-8">
         <!-- Card 1: Total Tables -->
-        <div class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl p-5 shadow-2xs">
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl p-5 shadow-2xs">
             <div class="flex items-center justify-between">
                 <span class="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Total Tables</span>
                 <span class="p-2 rounded-xl bg-primary-50 dark:bg-primary-950/40 text-primary-600 dark:text-primary-400">
@@ -45,7 +41,7 @@
         </div>
 
         <!-- Card 2: Active Tables -->
-        <div class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl p-5 shadow-2xs">
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl p-5 shadow-2xs">
             <div class="flex items-center justify-between">
                 <span class="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Tables Aktif</span>
                 <span class="p-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400">
@@ -59,7 +55,7 @@
         </div>
 
         <!-- Card 3: Inactive Tables -->
-        <div class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl p-5 shadow-2xs">
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl p-5 shadow-2xs">
             <div class="flex items-center justify-between">
                 <span class="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Tables Nonaktif</span>
                 <span class="p-2 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400">
@@ -73,7 +69,7 @@
         </div>
 
         <!-- Card 4: Total Users -->
-        <div class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl p-5 shadow-2xs">
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl p-5 shadow-2xs">
             <div class="flex items-center justify-between">
                 <span class="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Total Users</span>
                 <span class="p-2 rounded-xl bg-primary-50 dark:bg-primary-950/40 text-primary-600 dark:text-primary-400">
@@ -93,7 +89,7 @@
     <!-- Recent Data Grids -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- Recent Tables Panel -->
-        <div class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl shadow-2xs overflow-hidden">
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl shadow-2xs overflow-hidden">
             <div class="p-5 border-b border-zinc-100 dark:border-zinc-800 flex items-center justify-between">
                 <div>
                     <h2 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
@@ -140,7 +136,7 @@
         </div>
 
         <!-- Recent Users Panel -->
-        <div class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl shadow-2xs overflow-hidden">
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl shadow-2xs overflow-hidden">
             <div class="p-5 border-b border-zinc-100 dark:border-zinc-800 flex items-center justify-between">
                 <div>
                     <h2 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">

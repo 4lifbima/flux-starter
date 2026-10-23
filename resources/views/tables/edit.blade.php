@@ -11,7 +11,7 @@
         </div>
 
         <!-- Form Card -->
-        <div class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl p-6 sm:p-8 shadow-2xs">
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl p-6 sm:p-8 shadow-2xs">
             <form method="POST" action="{{ route('tables.update', $table->id) }}" class="space-y-6">
                 @csrf
                 @method('PUT')

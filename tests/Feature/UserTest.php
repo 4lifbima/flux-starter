@@ -45,6 +45,21 @@ class UserTest extends TestCase
         $response->assertDontSee('Bambang Sudirman');
     }
 
+    public function test_user_can_search_users_via_ajax_request(): void
+    {
+        $target = User::factory()->create(['name' => 'User Ajax Khusus', 'email' => 'ajax@example.com']);
+        $other = User::factory()->create(['name' => 'User Lain', 'email' => 'other@example.com']);
+
+        $response = $this->actingAs($this->admin)->get(route('users.index', ['search' => 'Khusus']), [
+            'X-Requested-With' => 'XMLHttpRequest',
+        ]);
+
+        $response->assertStatus(200);
+        $response->assertViewIs('users._table');
+        $response->assertSee('User Ajax Khusus');
+        $response->assertDontSee('User Lain');
+    }
+
     public function test_user_can_view_create_user_form(): void
     {
         $response = $this->actingAs($this->admin)->get(route('users.create'));

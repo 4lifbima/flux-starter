@@ -1,6 +1,6 @@
 <x-guest-layout title="Masuk">
     <div class="text-center mb-8">
-        <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-primary-600 text-white font-bold text-lg shadow-sm mb-3 transition-colors">
+        <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary-600 text-white font-bold text-lg shadow-sm mb-3 transition-colors">
             FX
         </div>
         <h1 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
@@ -11,7 +11,7 @@
         </p>
     </div>
 
-    <div class="relative bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 shadow-xl shadow-zinc-950/5">
+    <div class="relative bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-6 shadow-xl shadow-zinc-950/5">
         <!-- Floating Theme Trigger in Login -->
         <button type="button"
                 onclick="window.openThemeCustomizer()"

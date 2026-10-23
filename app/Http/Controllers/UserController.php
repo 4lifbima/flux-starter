@@ -72,7 +72,7 @@ class UserController extends Controller
         // Paginate and retain query parameters
         $users = $query->paginate($perPage)->withQueryString();
 
-        return view('users.index', [
+        $viewData = [
             'users' => $users,
             'search' => $search,
             'sort' => $sort,
@@ -81,7 +81,13 @@ class UserController extends Controller
             'allowedPerPage' => $this->allowedPerPage,
             'currentUserId' => Auth::id(),
             'totalUsersCount' => User::count(),
-        ]);
+        ];
+
+        if ($request->ajax()) {
+            return view('users._table', $viewData);
+        }
+
+        return view('users.index', $viewData);
     }
 
     /**

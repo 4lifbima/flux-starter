@@ -3,7 +3,7 @@
     <div class="fixed inset-0 bg-zinc-950/50 backdrop-blur-xs transition-opacity" onclick="window.closeConfirmModal()"></div>
 
     <!-- Modal Card -->
-    <div class="relative w-full max-w-md transform overflow-hidden rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-6 text-left shadow-2xl transition-all">
+    <div class="relative w-full max-w-md transform overflow-hidden rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-6 text-left shadow-2xl transition-all">
         <div class="flex items-start gap-4">
             <div class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400">
                 <x-heroicon-o-exclamation-triangle class="h-6 w-6" />

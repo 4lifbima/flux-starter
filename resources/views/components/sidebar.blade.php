@@ -25,8 +25,8 @@
 <aside class="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 bg-white dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800 z-30 transition-colors">
     <!-- Brand / Logo -->
     <div class="h-16 flex items-center px-6 border-b border-zinc-200/80 dark:border-zinc-800">
-        <a href="{{ route('dashboard') }}" class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-xl p-1">
-            <div class="w-8 h-8 rounded-xl bg-primary-600 text-white flex items-center justify-center font-bold text-sm tracking-tight shadow-xs transition-colors">
+        <a href="{{ route('dashboard') }}" class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-md p-1">
+            <div class="w-8 h-8 rounded-md bg-primary-600 text-white flex items-center justify-center font-bold text-sm tracking-tight shadow-xs transition-colors">
                 FX
             </div>
             <div class="flex flex-col">
@@ -47,7 +47,7 @@
         </div>
         @foreach ($navItems as $item)
             <a href="{{ route($item['route']) }}"
-               class="group flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-xl transition-all {{ $item['active'] ? 'bg-primary-50 dark:bg-primary-950/40 text-primary-700 dark:text-primary-300 font-semibold shadow-2xs' : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800/60 hover:text-zinc-900 dark:hover:text-zinc-100' }}">
+               class="group flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md transition-all {{ $item['active'] ? 'bg-primary-50 dark:bg-primary-950/40 text-primary-700 dark:text-primary-300 font-semibold shadow-2xs' : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800/60 hover:text-zinc-900 dark:hover:text-zinc-100' }}">
                 @if ($item['icon'] === 'heroicon-o-squares-2x2')
                     <x-heroicon-o-squares-2x2 class="w-5 h-5 flex-shrink-0 {{ $item['active'] ? 'text-primary-600 dark:text-primary-400' : 'text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-600 dark:group-hover:text-zinc-300' }}" />
                 @elseif ($item['icon'] === 'heroicon-o-table-cells')

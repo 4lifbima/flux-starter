@@ -32,7 +32,7 @@
         <!-- Quick Theme Customizer Button (Matching User's Request) -->
         <button type="button"
                 onclick="window.openThemeCustomizer()"
-                class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-xs font-semibold text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-700/60 shadow-2xs transition-all focus:outline-none focus:ring-2 focus:ring-primary-500"
+                class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-xs font-semibold text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-700/60 shadow-2xs transition-all focus:outline-none focus:ring-2 focus:ring-primary-500"
                 title="Kustomisasi Tema & Warna">
             <x-heroicon-o-swatch class="w-4 h-4 text-primary-600 dark:text-primary-400" />
             <span class="hidden sm:inline">Tema</span>
@@ -57,7 +57,7 @@
             </button>
 
             <!-- Dropdown Menu -->
-            <div id="profile-dropdown-menu" class="hidden absolute right-0 mt-2 w-48 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 py-1.5 shadow-xl shadow-zinc-950/5 focus:outline-none z-30" role="menu">
+            <div id="profile-dropdown-menu" class="hidden absolute right-0 mt-2 w-48 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 py-1.5 shadow-xl shadow-zinc-950/5 focus:outline-none z-30" role="menu">
                 <div class="px-3 py-2 border-b border-zinc-100 dark:border-zinc-800 md:hidden">
                     <p class="text-xs font-semibold text-zinc-900 dark:text-zinc-100">{{ auth()->user()->name }}</p>
                     <p class="text-[11px] text-zinc-400 truncate">{{ auth()->user()->email }}</p>
