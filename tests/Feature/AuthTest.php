@@ -97,4 +97,29 @@ class AuthTest extends TestCase
         $response->assertRedirect(route('login'));
         $response->assertSessionHas('success');
     }
+
+    public function test_register_screen_can_be_rendered(): void
+    {
+        $response = $this->get(route('register'));
+        $response->assertStatus(200);
+        $response->assertSee('Daftar Akun Baru');
+    }
+
+    public function test_users_can_register_new_account(): void
+    {
+        $response = $this->post(route('register.store'), [
+            'name' => 'Pengguna Baru',
+            'email' => 'pengguna.baru@example.com',
+            'password' => 'password123',
+            'password_confirmation' => 'password123',
+        ]);
+
+        $this->assertAuthenticated();
+        $this->assertDatabaseHas('users', [
+            'name' => 'Pengguna Baru',
+            'email' => 'pengguna.baru@example.com',
+        ]);
+        $response->assertRedirect(route('dashboard'));
+        $response->assertSessionHas('success');
+    }
 }

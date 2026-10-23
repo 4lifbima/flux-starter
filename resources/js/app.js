@@ -69,17 +69,26 @@
 
     window.selectPrimaryTheme = function (primary) {
         currentPrimary = primary;
+        localStorage.setItem(STORAGE_PRIMARY, currentPrimary);
         applyThemeToDOM(currentPrimary, currentNeutral, currentMode);
     };
 
     window.selectNeutralTheme = function (neutral) {
         currentNeutral = neutral;
+        localStorage.setItem(STORAGE_NEUTRAL, currentNeutral);
         applyThemeToDOM(currentPrimary, currentNeutral, currentMode);
     };
 
     window.selectThemeMode = function (mode) {
         currentMode = mode;
+        localStorage.setItem(STORAGE_MODE, currentMode);
         applyThemeToDOM(currentPrimary, currentNeutral, currentMode);
+    };
+
+    window.toggleDarkMode = function () {
+        const isDark = document.documentElement.classList.contains('dark');
+        const newMode = isDark ? 'light' : 'dark';
+        window.selectThemeMode(newMode);
     };
 
     window.openThemeCustomizer = function () {

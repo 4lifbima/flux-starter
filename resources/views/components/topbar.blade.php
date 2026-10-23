@@ -29,6 +29,17 @@
 
     <!-- Right Side Actions & Profile Dropdown -->
     <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Quick Dark/Light Mode Toggle Button -->
+        <button type="button"
+                id="quick-dark-mode-toggle"
+                onclick="window.toggleDarkMode()"
+                class="inline-flex items-center justify-center p-2 rounded-md border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-700/60 shadow-2xs transition-all focus:outline-none focus:ring-2 focus:ring-primary-500 cursor-pointer"
+                title="Beralih Mode Gelap / Terang"
+                aria-label="Beralih Mode Gelap / Terang">
+            <x-heroicon-o-sun class="w-4 h-4 hidden dark:block text-amber-400" />
+            <x-heroicon-o-moon class="w-4 h-4 block dark:hidden text-zinc-600" />
+        </button>
+
         <!-- Quick Theme Customizer Button (Matching User's Request) -->
         <button type="button"
                 onclick="window.openThemeCustomizer()"
