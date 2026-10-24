@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -31,4 +32,9 @@ Route::middleware('auth')->group(function () {
 
     // Users CRUD
     Route::resource('users', UserController::class)->except(['show']);
+
+    // Roles & Permissions CRUD
+    Route::resource('roles', RoleController::class)->except(['show']);
+    Route::post('permissions', [RoleController::class, 'storePermission'])->name('permissions.store');
+    Route::delete('permissions/{permission}', [RoleController::class, 'destroyPermission'])->name('permissions.destroy');
 });

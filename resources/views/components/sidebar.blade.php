@@ -18,6 +18,12 @@
             'active' => request()->routeIs('users.*'),
             'icon' => 'heroicon-o-users',
         ],
+        [
+            'name' => 'Roles & Permissions',
+            'route' => 'roles.index',
+            'active' => request()->routeIs('roles.*'),
+            'icon' => 'heroicon-o-shield-check',
+        ],
     ];
 @endphp
 
@@ -57,6 +63,8 @@
                     <x-heroicon-o-table-cells class="w-5 h-5 flex-shrink-0 {{ $item['active'] ? 'text-primary-600 dark:text-primary-400' : 'text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-600 dark:group-hover:text-zinc-300' }}" />
                 @elseif ($item['icon'] === 'heroicon-o-users')
                     <x-heroicon-o-users class="w-5 h-5 flex-shrink-0 {{ $item['active'] ? 'text-primary-600 dark:text-primary-400' : 'text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-600 dark:group-hover:text-zinc-300' }}" />
+                @elseif ($item['icon'] === 'heroicon-o-shield-check')
+                    <x-heroicon-o-shield-check class="w-5 h-5 flex-shrink-0 {{ $item['active'] ? 'text-primary-600 dark:text-primary-400' : 'text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-600 dark:group-hover:text-zinc-300' }}" />
                 @endif
                 <span class="sidebar-text truncate">{{ $item['name'] }}</span>
             </a>
@@ -120,6 +128,8 @@
                     <x-heroicon-o-table-cells class="w-5 h-5 flex-shrink-0 {{ $item['active'] ? 'text-primary-600 dark:text-primary-400' : 'text-zinc-400 dark:text-zinc-500' }}" />
                 @elseif ($item['icon'] === 'heroicon-o-users')
                     <x-heroicon-o-users class="w-5 h-5 flex-shrink-0 {{ $item['active'] ? 'text-primary-600 dark:text-primary-400' : 'text-zinc-400 dark:text-zinc-500' }}" />
+                @elseif ($item['icon'] === 'heroicon-o-shield-check')
+                    <x-heroicon-o-shield-check class="w-5 h-5 flex-shrink-0 {{ $item['active'] ? 'text-primary-600 dark:text-primary-400' : 'text-zinc-400 dark:text-zinc-500' }}" />
                 @endif
                 <span>{{ $item['name'] }}</span>
             </a>

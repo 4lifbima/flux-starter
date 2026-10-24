@@ -92,8 +92,7 @@
 
         <!-- Kolom 2: Simple Donut in JavaScript (5 Kolom) -->
         <div class="lg:col-span-5 bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl p-5 shadow-2xs flex flex-col justify-between overflow-hidden">
-            <span class="sr-only">Simple Donut in JavaScript</span>
-            <div id="simple-donut-chart" class="w-full min-h-[350px] flex items-center justify-center"></div>
+            <div id="simple-donut-chart" class="w-full min-h-[450px] flex items-center justify-center mt-4"></div>
         </div>
     </div>
 
@@ -334,7 +333,7 @@
                 const donutOptions = {
                     series: [54, 41, 38, 16, 12],
                     chart: {
-                        width: 440,
+                        width: 560,
                         type: 'donut',
                         fontFamily: 'Instrument Sans, sans-serif',
                         background: 'transparent'
@@ -351,6 +350,7 @@
                         align: 'center',
                         style: {
                             fontSize: '15px',
+                            marginTop: '20px',
                             fontWeight: 700,
                             fontFamily: 'Instrument Sans, sans-serif',
                             color: dark ? '#f4f4f5' : '#18181b'
