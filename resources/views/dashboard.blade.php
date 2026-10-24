@@ -91,7 +91,8 @@
         </div>
 
         <!-- Kolom 2: Simple Donut in JavaScript (5 Kolom) -->
-        <div class="lg:col-span-5 bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl p-5 shadow-2xs flex flex-col justify-between">
+        <div class="lg:col-span-5 bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl p-5 shadow-2xs flex flex-col justify-between overflow-hidden">
+            <span class="sr-only">Simple Donut in JavaScript</span>
             <div id="simple-donut-chart" class="w-full min-h-[350px] flex items-center justify-center"></div>
         </div>
     </div>
@@ -329,68 +330,76 @@
                     areaChart.render();
                 }
 
-                // 2. Simple Donut in JavaScript Configuration
+                // 2. Simple Donut in JavaScript Configuration (Revenue by Region with External Labels)
                 const donutOptions = {
-                    series: donutSeries,
+                    series: [54, 41, 38, 16, 12],
                     chart: {
+                        width: 440,
                         type: 'donut',
-                        height: 350,
                         fontFamily: 'Instrument Sans, sans-serif',
                         background: 'transparent'
                     },
-                    labels: donutLabels,
+                    labels: [
+                        'North America',
+                        'Europe',
+                        'Asia Pacific',
+                        'Latin America',
+                        'Middle East',
+                    ],
                     title: {
-                        text: 'Simple Donut in JavaScript',
-                        align: 'left',
+                        text: 'Revenue by Region ($M)',
+                        align: 'center',
                         style: {
-                            fontSize: '14px',
-                            fontWeight: 600,
+                            fontSize: '15px',
+                            fontWeight: 700,
                             fontFamily: 'Instrument Sans, sans-serif',
                             color: dark ? '#f4f4f5' : '#18181b'
                         }
                     },
-                    subtitle: {
-                        text: 'Distribusi entitas & peran pengguna (Role & Status)',
-                        align: 'left',
-                        style: {
-                            fontSize: '12px',
-                            fontFamily: 'Instrument Sans, sans-serif',
-                            color: dark ? '#a1a1aa' : '#71717a'
-                        }
-                    },
-                    colors: ['#10b981', '#71717a', '#6366f1', '#f59e0b', '#3b82f6'],
-                    dataLabels: {
-                        enabled: true,
-                        dropShadow: { enabled: false }
-                    },
+                    colors: ['#008ffb', '#00b074', '#c87a08', '#ff4560', '#775dd0'],
                     legend: {
-                        position: 'bottom',
-                        fontFamily: 'Instrument Sans, sans-serif',
-                        labels: {
-                            colors: dark ? '#d4d4d8' : '#3f3f46'
-                        },
-                        markers: {
-                            radius: 4
-                        }
+                        show: false,
                     },
                     stroke: {
                         show: true,
                         colors: dark ? ['#18181b'] : ['#ffffff'],
                         width: 2
                     },
+                    plotOptions: {
+                        pie: {
+                            dataLabels: {
+                                external: {
+                                    show: true,
+                                    color: dark ? '#e4e4e7' : '#27272a',
+                                    fontWeight: 600,
+                                    connector: {
+                                        show: true,
+                                    }
+                                },
+                            },
+                        },
+                    },
                     theme: {
                         mode: dark ? 'dark' : 'light'
                     },
-                    responsive: [{
-                        breakpoint: 480,
-                        options: {
-                            chart: { width: 280 },
-                            legend: { position: 'bottom' }
-                        }
-                    }],
-                    tooltip: {
-                        theme: dark ? 'dark' : 'light'
-                    }
+                    responsive: [
+                        {
+                            breakpoint: 1366,
+                            options: {
+                                chart: {
+                                    width: 380,
+                                },
+                            },
+                        },
+                        {
+                            breakpoint: 480,
+                            options: {
+                                chart: {
+                                    width: 320,
+                                },
+                            },
+                        },
+                    ],
                 };
 
                 const donutChartEl = document.querySelector("#simple-donut-chart");
@@ -430,12 +439,18 @@
                         donutChart.updateOptions({
                             theme: { mode: isDark ? 'dark' : 'light' },
                             stroke: { colors: isDark ? ['#18181b'] : ['#ffffff'] },
-                            legend: { labels: { colors: isDark ? '#d4d4d8' : '#3f3f46' } },
                             title: {
                                 style: { color: isDark ? '#f4f4f5' : '#18181b' }
                             },
-                            subtitle: {
-                                style: { color: isDark ? '#a1a1aa' : '#71717a' }
+                            plotOptions: {
+                                pie: {
+                                    dataLabels: {
+                                        external: {
+                                            show: true,
+                                            color: isDark ? '#e4e4e7' : '#27272a'
+                                        }
+                                    }
+                                }
                             }
                         });
                     }
