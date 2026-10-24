@@ -80,5 +80,7 @@
 
     <!-- Reusable Modal Confirmation Dialog -->
     <x-confirm-dialog />
+
+    @stack('scripts')
 </body>
 </html>

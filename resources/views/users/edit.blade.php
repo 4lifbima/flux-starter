@@ -50,6 +50,34 @@
                     @enderror
                 </div>
 
+                <!-- Role Field -->
+                <div>
+                    <label for="role" class="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider mb-2">
+                        Peran (Role) <span class="text-rose-500">*</span>
+                    </label>
+                    <select id="role"
+                            name="role"
+                            class="w-full px-3.5 py-2.5 text-sm rounded-xl border {{ $errors->has('role') ? 'border-rose-300 bg-rose-50/20 text-rose-900 focus:border-rose-500 focus:ring-rose-200' : 'border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:border-primary-500 dark:focus:border-primary-400 focus:ring-primary-500/20' }} focus:outline-none focus:ring-2 transition-colors">
+                        @php
+                            $currentRole = old('role', $user->roles->first()?->name ?? 'user');
+                        @endphp
+                        @if (isset($roles))
+                            @foreach ($roles as $r)
+                                <option value="{{ $r->name }}" {{ $currentRole === $r->name ? 'selected' : '' }}>
+                                    {{ ucfirst($r->name) }}
+                                </option>
+                            @endforeach
+                        @else
+                            <option value="user" {{ $currentRole === 'user' ? 'selected' : '' }}>User</option>
+                            <option value="manager" {{ $currentRole === 'manager' ? 'selected' : '' }}>Manager</option>
+                            <option value="admin" {{ $currentRole === 'admin' ? 'selected' : '' }}>Admin</option>
+                        @endif
+                    </select>
+                    @error('role')
+                        <p class="mt-1.5 text-xs text-rose-600 dark:text-rose-400 font-medium">{{ $message }}</p>
+                    @enderror
+                </div>
+
                 <div class="pt-4 border-t border-zinc-100 dark:border-zinc-800">
                     <p class="text-xs font-semibold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider mb-1">
                         Ganti Kata Sandi (Opsional)

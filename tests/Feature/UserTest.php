@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class UserTest extends TestCase
@@ -188,5 +189,41 @@ class UserTest extends TestCase
         $response->assertSessionHas('success', 'Pengguna berhasil dihapus.');
 
         $this->assertDatabaseMissing('users', ['id' => $otherUser->id]);
+    }
+
+    public function test_user_can_be_created_with_spatie_role(): void
+    {
+        Role::firstOrCreate(['name' => 'manager', 'guard_name' => 'web']);
+
+        $response = $this->actingAs($this->admin)->post(route('users.store'), [
+            'name' => 'Manager User',
+            'email' => 'manager@example.com',
+            'role' => 'manager',
+            'password' => 'password123',
+            'password_confirmation' => 'password123',
+        ]);
+
+        $response->assertRedirect(route('users.index'));
+        $user = User::where('email', 'manager@example.com')->first();
+        $this->assertNotNull($user);
+        $this->assertTrue($user->hasRole('manager'));
+    }
+
+    public function test_user_role_can_be_updated(): void
+    {
+        Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']);
+        Role::firstOrCreate(['name' => 'user', 'guard_name' => 'web']);
+
+        $targetUser = User::factory()->create();
+        $targetUser->assignRole('user');
+
+        $response = $this->actingAs($this->admin)->put(route('users.update', $targetUser->id), [
+            'name' => $targetUser->name,
+            'email' => $targetUser->email,
+            'role' => 'admin',
+        ]);
+
+        $response->assertRedirect(route('users.index'));
+        $this->assertTrue($targetUser->fresh()->hasRole('admin'));
     }
 }

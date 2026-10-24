@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
+use Spatie\Permission\Models\Role;
 
 class AuthController extends Controller
 {
@@ -87,6 +88,10 @@ class AuthController extends Controller
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
         ]);
+
+        if (Role::where('name', 'user')->exists()) {
+            $user->assignRole('user');
+        }
 
         Auth::login($user);
         $request->session()->regenerate();

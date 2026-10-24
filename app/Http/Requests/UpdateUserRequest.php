@@ -37,6 +37,7 @@ class UpdateUserRequest extends FormRequest
                 Rule::unique('users', 'email')->ignore($userId),
             ],
             'password' => ['nullable', 'string', 'confirmed', Password::defaults()],
+            'role' => ['nullable', 'string', 'exists:roles,name'],
         ];
     }
 

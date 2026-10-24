@@ -42,6 +42,11 @@
                     </button>
                 </th>
 
+                <!-- Column: Role -->
+                <th scope="col" class="px-3 py-3.5">
+                    Peran (Role)
+                </th>
+
                 <!-- Column: Created At (Sortable) -->
                 <th scope="col" class="px-3 py-3.5 hidden sm:table-cell">
                     <button type="button"
@@ -94,6 +99,29 @@
                         {{ $user->email }}
                     </td>
 
+                    <!-- Role Badge -->
+                    <td class="px-3 py-4 whitespace-nowrap">
+                        @php
+                            $roleName = $user->roles->first()?->name ?? 'user';
+                        @endphp
+                        @if ($roleName === 'admin')
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-primary-50 text-primary-700 dark:bg-primary-950/40 dark:text-primary-300 border border-primary-200 dark:border-primary-800">
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary-600"></span>
+                                Administrator
+                            </span>
+                        @elseif ($roleName === 'manager')
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                                Manager
+                            </span>
+                        @else
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">
+                                <span class="w-1.5 h-1.5 rounded-full bg-zinc-400"></span>
+                                User
+                            </span>
+                        @endif
+                    </td>
+
                     <!-- Date -->
                     <td class="px-3 py-4 text-xs text-zinc-500 hidden sm:table-cell">
                         {{ $user->created_at->format('d M Y, H:i') }}
@@ -140,7 +168,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="4" class="py-16 text-center">
+                    <td colspan="5" class="py-16 text-center">
                         <div class="max-w-xs mx-auto">
                             <div class="w-12 h-12 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-400 flex items-center justify-center mx-auto mb-3">
                                 <x-heroicon-o-users class="w-6 h-6" />

@@ -83,6 +83,21 @@
         </div>
     </div>
 
+    <!-- ApexCharts 2 Columns Grid: Basic Area & Simple Donut -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <!-- Kolom 1: Basic Area in JavaScript -->
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl p-5 shadow-2xs flex flex-col justify-between">
+            <div id="basic-area-chart" class="w-full min-h-[350px]"></div>
+        </div>
+
+        <!-- Kolom 2: Simple Donut in JavaScript -->
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl p-5 shadow-2xs flex flex-col justify-between">
+                <div class="flex items-center gap-2.5">
+            </div>
+            <div id="simple-donut-chart" class="w-full min-h-[350px] flex items-center justify-center"></div>
+        </div>
+    </div>
+
     <!-- Recent Data Grids -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- Recent Tables Panel -->
@@ -142,7 +157,7 @@
                     <h2 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
                         Pengguna Terdaftar Terbaru
                     </h2>
-                    <p class="text-xs text-zinc-500">Akun pengguna sistem yang baru dibuat.</p>
+                    <p class="text-xs text-zinc-500">Akun pengguna sistem yang baru dibuat beserta role Spatie.</p>
                 </div>
                 <a href="{{ route('users.index') }}" class="text-xs font-semibold text-primary-600 dark:text-primary-400 hover:underline">
                     Lihat Semua
@@ -156,9 +171,20 @@
                                 {{ substr($user->name, 0, 2) }}
                             </div>
                             <div class="min-w-0">
-                                <p class="text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate">
-                                    {{ $user->name }}
-                                </p>
+                                <div class="flex items-center gap-2">
+                                    <p class="text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate">
+                                        {{ $user->name }}
+                                    </p>
+                                    @php
+                                        $primaryRole = $user->roles->first()?->name ?? 'user';
+                                    @endphp
+                                    <span class="inline-flex items-center px-1.5 py-0.2 rounded text-[10px] font-semibold uppercase tracking-wider
+                                        @if($primaryRole === 'admin') bg-rose-50 text-rose-700 dark:bg-rose-950/40 dark:text-rose-400 border border-rose-200 dark:border-rose-800/60
+                                        @elseif($primaryRole === 'manager') bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-400 border border-amber-200 dark:border-amber-800/60
+                                        @else bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 @endif">
+                                        {{ $primaryRole }}
+                                    </span>
+                                </div>
                                 <p class="text-xs text-zinc-500 truncate">
                                     {{ $user->email }}
                                 </p>
@@ -176,4 +202,250 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const primaryColorMap = {
+                orange: '#ea580c',
+                indigo: '#4f46e5',
+                rose: '#e11d48',
+                emerald: '#059669',
+                amber: '#d97706',
+                sky: '#0284c7',
+                purple: '#9333ea',
+                neutral: '#52525b'
+            };
+
+            function getCurrentPrimaryHex() {
+                const primary = document.documentElement.getAttribute('data-primary') || 'orange';
+                return primaryColorMap[primary] || '#ea580c';
+            }
+
+            function isDarkMode() {
+                return document.documentElement.classList.contains('dark');
+            }
+
+            const areaCategories = @json($areaCategories ?? []);
+            const areaSeries = @json($areaSeries ?? []);
+            const donutLabels = @json($donutLabels ?? []);
+            const donutSeries = @json($donutSeries ?? []);
+
+            function initCharts() {
+                if (typeof ApexCharts === 'undefined') {
+                    setTimeout(initCharts, 60);
+                    return;
+                }
+
+                const dark = isDarkMode();
+                const primaryHex = getCurrentPrimaryHex();
+
+                // 1. Basic Area in JavaScript Configuration
+                const areaOptions = {
+                    series: areaSeries,
+                    chart: {
+                        type: 'area',
+                        height: 350,
+                        zoom: { enabled: false },
+                        toolbar: { show: false },
+                        fontFamily: 'Instrument Sans, sans-serif',
+                        background: 'transparent'
+                    },
+                    dataLabels: { enabled: false },
+                    stroke: {
+                        curve: 'straight',
+                        width: 2
+                    },
+                    title: {
+                        text: 'Basic Area in JavaScript',
+                        align: 'left',
+                        style: {
+                            fontSize: '14px',
+                            fontWeight: 600,
+                            fontFamily: 'Instrument Sans, sans-serif',
+                            color: dark ? '#f4f4f5' : '#18181b'
+                        }
+                    },
+                    subtitle: {
+                        text: 'Tren pertumbuhan aktivitas & rekapitulasi data',
+                        align: 'left',
+                        style: {
+                            fontSize: '12px',
+                            fontFamily: 'Instrument Sans, sans-serif',
+                            color: dark ? '#a1a1aa' : '#71717a'
+                        }
+                    },
+                    labels: areaCategories,
+                    xaxis: {
+                        type: 'category',
+                        labels: {
+                            style: {
+                                colors: dark ? '#a1a1aa' : '#71717a',
+                                fontFamily: 'Instrument Sans, sans-serif'
+                            }
+                        },
+                        axisBorder: { show: false },
+                        axisTicks: { show: false }
+                    },
+                    yaxis: {
+                        opposite: false,
+                        labels: {
+                            style: {
+                                colors: dark ? '#a1a1aa' : '#71717a',
+                                fontFamily: 'Instrument Sans, sans-serif'
+                            }
+                        }
+                    },
+                    grid: {
+                        borderColor: dark ? '#27272a' : '#f4f4f5',
+                        strokeDashArray: 4
+                    },
+                    colors: [primaryHex],
+                    fill: {
+                        type: 'gradient',
+                        gradient: {
+                            shadeIntensity: 1,
+                            opacityFrom: 0.45,
+                            opacityTo: 0.05,
+                            stops: [0, 90, 100]
+                        }
+                    },
+                    theme: {
+                        mode: dark ? 'dark' : 'light'
+                    },
+                    tooltip: {
+                        theme: dark ? 'dark' : 'light',
+                        y: {
+                            formatter: function (val) {
+                                return val + " records";
+                            }
+                        }
+                    }
+                };
+
+                const areaChartEl = document.querySelector("#basic-area-chart");
+                let areaChart = null;
+                if (areaChartEl) {
+                    areaChartEl.innerHTML = '';
+                    areaChart = new ApexCharts(areaChartEl, areaOptions);
+                    areaChart.render();
+                }
+
+                // 2. Simple Donut in JavaScript Configuration
+                const donutOptions = {
+                    series: donutSeries,
+                    chart: {
+                        type: 'donut',
+                        height: 350,
+                        fontFamily: 'Instrument Sans, sans-serif',
+                        background: 'transparent'
+                    },
+                    labels: donutLabels,
+                    title: {
+                        text: 'Simple Donut in JavaScript',
+                        align: 'left',
+                        style: {
+                            fontSize: '14px',
+                            fontWeight: 600,
+                            fontFamily: 'Instrument Sans, sans-serif',
+                            color: dark ? '#f4f4f5' : '#18181b'
+                        }
+                    },
+                    subtitle: {
+                        text: 'Distribusi entitas & peran pengguna (Role & Status)',
+                        align: 'left',
+                        style: {
+                            fontSize: '12px',
+                            fontFamily: 'Instrument Sans, sans-serif',
+                            color: dark ? '#a1a1aa' : '#71717a'
+                        }
+                    },
+                    colors: ['#10b981', '#71717a', '#6366f1', '#f59e0b', '#3b82f6'],
+                    dataLabels: {
+                        enabled: true,
+                        dropShadow: { enabled: false }
+                    },
+                    legend: {
+                        position: 'bottom',
+                        fontFamily: 'Instrument Sans, sans-serif',
+                        labels: {
+                            colors: dark ? '#d4d4d8' : '#3f3f46'
+                        },
+                        markers: {
+                            radius: 4
+                        }
+                    },
+                    stroke: {
+                        show: true,
+                        colors: dark ? ['#18181b'] : ['#ffffff'],
+                        width: 2
+                    },
+                    theme: {
+                        mode: dark ? 'dark' : 'light'
+                    },
+                    responsive: [{
+                        breakpoint: 480,
+                        options: {
+                            chart: { width: 280 },
+                            legend: { position: 'bottom' }
+                        }
+                    }],
+                    tooltip: {
+                        theme: dark ? 'dark' : 'light'
+                    }
+                };
+
+                const donutChartEl = document.querySelector("#simple-donut-chart");
+                let donutChart = null;
+                if (donutChartEl) {
+                    donutChartEl.innerHTML = '';
+                    donutChart = new ApexCharts(donutChartEl, donutOptions);
+                    donutChart.render();
+                }
+
+                // Dynamic theme change listener
+                window.addEventListener('flux-theme-changed', function (e) {
+                    const isDark = e.detail.mode === 'dark';
+                    const primaryColor = primaryColorMap[e.detail.primary] || '#ea580c';
+
+                    if (areaChart) {
+                        areaChart.updateOptions({
+                            theme: { mode: isDark ? 'dark' : 'light' },
+                            colors: [primaryColor],
+                            grid: { borderColor: isDark ? '#27272a' : '#f4f4f5' },
+                            xaxis: {
+                                labels: { style: { colors: isDark ? '#a1a1aa' : '#71717a' } }
+                            },
+                            yaxis: {
+                                labels: { style: { colors: isDark ? '#a1a1aa' : '#71717a' } }
+                            },
+                            title: {
+                                style: { color: isDark ? '#f4f4f5' : '#18181b' }
+                            },
+                            subtitle: {
+                                style: { color: isDark ? '#a1a1aa' : '#71717a' }
+                            }
+                        });
+                    }
+
+                    if (donutChart) {
+                        donutChart.updateOptions({
+                            theme: { mode: isDark ? 'dark' : 'light' },
+                            stroke: { colors: isDark ? ['#18181b'] : ['#ffffff'] },
+                            legend: { labels: { colors: isDark ? '#d4d4d8' : '#3f3f46' } },
+                            title: {
+                                style: { color: isDark ? '#f4f4f5' : '#18181b' }
+                            },
+                            subtitle: {
+                                style: { color: isDark ? '#a1a1aa' : '#71717a' }
+                            }
+                        });
+                    }
+                });
+            }
+
+            initCharts();
+        });
+    </script>
+    @endpush
 </x-app-layout>

@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
 
         // 2. Demo Users for testing pagination & search
         $demoUsers = [
-            ['name' => 'Budi Santoso', 'email' => 'budi@example.com'],
+            ['name' => 'Alif Bima Pradana', 'email' => 'budi@example.com'],
             ['name' => 'Siti Nurhaliza', 'email' => 'siti@example.com'],
             ['name' => 'Ahmad Fauzi', 'email' => 'ahmad@example.com'],
             ['name' => 'Dewi Lestari', 'email' => 'dewi@example.com'],
@@ -46,6 +46,9 @@ class DatabaseSeeder extends Seeder
                 ]
             );
         }
+
+        // Seed Spatie Roles & Permissions
+        $this->call(RolePermissionSeeder::class);
 
         // 3. Demo Tables for testing dynamic table functionality
         $demoTables = [

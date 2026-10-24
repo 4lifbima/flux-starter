@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -56,7 +57,7 @@ class UserController extends Controller
             $perPage = 10;
         }
 
-        $query = User::query();
+        $query = User::with('roles');
 
         // Search by name or email
         if ($search !== '') {
@@ -95,7 +96,9 @@ class UserController extends Controller
      */
     public function create(): View
     {
-        return view('users.create');
+        $roles = Role::all();
+
+        return view('users.create', compact('roles'));
     }
 
     /**
@@ -104,9 +107,15 @@ class UserController extends Controller
     public function store(StoreUserRequest $request): RedirectResponse
     {
         $validated = $request->validated();
+        $role = $validated['role'] ?? 'user';
+        unset($validated['role']);
+
         $validated['password'] = Hash::make($validated['password']);
 
-        User::create($validated);
+        $user = User::create($validated);
+        if (Role::where('name', $role)->exists()) {
+            $user->assignRole($role);
+        }
 
         return redirect()->route('users.index')
             ->with('success', 'Pengguna berhasil ditambahkan.');
@@ -117,7 +126,9 @@ class UserController extends Controller
      */
     public function edit(User $user): View
     {
-        return view('users.edit', compact('user'));
+        $roles = Role::all();
+
+        return view('users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -126,6 +137,8 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user): RedirectResponse
     {
         $validated = $request->validated();
+        $role = $validated['role'] ?? null;
+        unset($validated['role']);
 
         if (! empty($validated['password'])) {
             $validated['password'] = Hash::make($validated['password']);
@@ -134,6 +147,10 @@ class UserController extends Controller
         }
 
         $user->update($validated);
+
+        if ($role && Role::where('name', $role)->exists()) {
+            $user->syncRoles([$role]);
+        }
 
         return redirect()->route('users.index')
             ->with('success', 'Pengguna berhasil diperbarui.');

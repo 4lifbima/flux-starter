@@ -1,3 +1,6 @@
+import ApexCharts from 'apexcharts';
+window.ApexCharts = ApexCharts;
+
 /**
  * Flux-Inspired UI Lightweight JavaScript Support
  * Clean, reactive, no heavy frameworks, accessible.
@@ -24,6 +27,12 @@
         }
 
         updateCustomizerUI(primary, neutral, mode);
+
+        try {
+            window.dispatchEvent(new CustomEvent('flux-theme-changed', {
+                detail: { primary, neutral, mode }
+            }));
+        } catch (e) {}
     }
 
     function updateCustomizerUI(primary, neutral, mode) {
