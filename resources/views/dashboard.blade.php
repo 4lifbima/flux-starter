@@ -83,17 +83,15 @@
         </div>
     </div>
 
-    <!-- ApexCharts 2 Columns Grid: Basic Area & Simple Donut -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        <!-- Kolom 1: Basic Area in JavaScript -->
-        <div class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl p-5 shadow-2xs flex flex-col justify-between">
+    <!-- ApexCharts 2 Columns Grid: Basic Area (7) & Simple Donut (5) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+        <!-- Kolom 1: Basic Area in JavaScript (7 Kolom) -->
+        <div class="lg:col-span-7 bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl p-5 shadow-2xs flex flex-col justify-between">
             <div id="basic-area-chart" class="w-full min-h-[350px]"></div>
         </div>
 
-        <!-- Kolom 2: Simple Donut in JavaScript -->
-        <div class="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl p-5 shadow-2xs flex flex-col justify-between">
-                <div class="flex items-center gap-2.5">
-            </div>
+        <!-- Kolom 2: Simple Donut in JavaScript (5 Kolom) -->
+        <div class="lg:col-span-5 bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-xl p-5 shadow-2xs flex flex-col justify-between">
             <div id="simple-donut-chart" class="w-full min-h-[350px] flex items-center justify-center"></div>
         </div>
     </div>
